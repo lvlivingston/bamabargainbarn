@@ -7,10 +7,10 @@ An eCommerce web application created by Leah Livingston.
 ### **Project Idea and Description**
 
 My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to keep it simple, while showing off new skills: 
-[1] Django
-[2] Python
-[3] PostgreSQL, and
-[4] an eCommerce functionality utilizing the API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python) 
+1. Django
+2. Python
+3. PostgreSQL, and
+4. an eCommerce functionality utilizing the API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python) 
 
 Without a clear picture on the details, the idea is to build a responsive website with the ability to take a quiz to learn your Ayurvedic dosha type. The quiz ends by dynamically re-directing to a landing URL that provides educational content specific to that dosha type. Along with diet, exercise, sleep, and work recommendations, the web application will include a prompt to buy a traditional Ayurvedic copper tongue scraper as the eCommerce element.
 
