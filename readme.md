@@ -33,7 +33,7 @@ The application utilizes the third-party API from [Stripe](https://stripe.com/do
 
 ---
 ### **ERD**
-![ERD]("./images/erdWireframe.png")
+![ERD](./images/erdWireframe.png)
 
 
 ---
