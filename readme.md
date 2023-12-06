@@ -21,10 +21,11 @@ Without a clear picture on the details, the idea is to build a responsive websit
 
 ---
 ### **Tech Stack**
-It will be a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe
+It will be a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
 
 ###### **API Details**
 The application utilizes the third-party API from [Stripe](https://stripe.com/docs) (which allows free test development). 
+
 [ADD MORE DESCRIPTION HERE ONCE GETTING SETUP]
 
 ![ADD API Details]('change to relational link"./public/images/pitch/apiDetails.png"')
@@ -32,7 +33,7 @@ The application utilizes the third-party API from [Stripe](https://stripe.com/do
 
 ---
 ### **ERD**
-![ADD ERD]('change to relational link"./src/images/final/finalERD.png"')
+![ERD]("./images/erdWireframe.png")
 
 
 ---
