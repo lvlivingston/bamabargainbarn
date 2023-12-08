@@ -11,6 +11,10 @@
       <p><b>Description:</b> <i>{{ finch.description }}</i></p></br>
       <p><b>Diet:</b> <i>{{ finch.diet }}</i></p></br>
     </div>
+    <div class="card-action">
+        <a href="{% url 'finches_update' finch.id %}">Edit</a>
+        <a href="{% url 'finches_delete' finch.id %}">Delete</a>
+    </div>
   </div>
 
 {% endblock %}
