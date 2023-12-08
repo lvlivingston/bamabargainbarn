@@ -85,42 +85,23 @@ A big thank you to Weston Bailey, Rondell Charles, April Gonzalez, Tom Kolsrud, 
 ### **Stretch Goals**
 
 ###### User Stories
-- [ ] AAU, I want to learn how to equalize my body's unique constitution to enjoy a balanced mind, body, and spirit.
-- [ ] AAU, I want the ability to take a quiz to learn my Ayurvedic dosha type.
-- [ ] AAU, I want the web application to determine my dosha type based upon my provided answers from the quiz.
-- [ ] AAU, I want the web application to suggest a food recommendations, exercise routines, and other preventative health methods based upon my dosha type.
-- [ ] AAU, I want the ability to search the web application via a search bar, regardless of what page I'm on.
 - [ ] AAU, I want the ability to create a profile once I'm ready to purchase something.
-- [ ] AAU, I want the ability to log-in and reference my dosha type and the recommendations from time to time.
-- [ ] AAU, I want the ability to re-take the quiz and the web application tracks changes in my constitution over time.
-- [ ] AAU, I do not want other users to see my quiz results or purchase history.
-- [ ] AAU, I want my lifestyle recommendations to update over time as I update my data.
+- [ ] AAU, I want the ability to log-in and reference my past purchases.
+- [ ] AAU, I do not want other users to see my purchase history.
+- [ ] AAU, I the ability to sign-up for a newsletter to get email updates about new products.
 - [ ] AAU, I want the ability to log-out.
 
 ###### Style
 - [ ] Include a 'Brand Kit' for future development use
 - [ ] Include CSS styling following a 'Brand Kit'
 - [ ] Include visual optimization for desktop and tablet
-- [ ] Include search bar in the top navigation
 - [ ] Include newsletter sign-up option in top navigation
 
 ###### Functionality
-- [ ] Include educational information about Ayurveda and prompt to start quiz on landing page
-- [ ] Include a quiz (max. 10. questions) that will determine dosha type based off provided answers
-- [ ] Include ability for web application to dynamically end quiz on that dosha type's page based on my dosha type
-- [ ] Include educational content for each of the three dosha types
-- [ ] Includes ability to search web application via a search bar
-- [ ] Includes newsletter 
 - [ ] Include ability to create a new user profile upon purchase of a product
 - [ ] Include ability for user to view their profile
-- [ ] Include ability to save dosha scores in profile
-- [ ] Include ability to re-test from time to time in order to track changes in balance
 - [ ] Include ability for user to view past purchases
-- [ ] Include ability for user to view past quiz results and changes in constitution over time
 - [ ] Include ability for user to log-out
+- [ ] Includes newsletter sign-up functionality
 - [ ] Include functionality that allows each user to only see their own data
-- [ ] Include more in-depth quiz option for upsell opportunity (i.e. first 10 basic, add 2 options for in-depth nature dosha and in-depth nurture dosha.)
-- [ ] Include opportunity to sign up for quarterly self-care package
-- [ ] Include ability to upload photos of hands, tongue, and eyes to monitor health
-- [ ] Include ability to sign up for a one-hour session with a trained, traditional Ayurvedic doctor 
 - [ ] Include ability to log-in via oAuth in top navigation
