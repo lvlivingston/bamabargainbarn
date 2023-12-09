@@ -9,7 +9,16 @@ MEALS = (
     ('D', 'Dinner')
 )
 
-# Create your models here.
+class Toy(models.Model):
+  name = models.CharField(max_length=50)
+  color = models.CharField(max_length=20)
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('toys_detail', kwargs={'pk': self.id})
+  
 class Finch(models.Model):
     name = models.CharField(max_length=50)
     scientificname = models.CharField(max_length=100)
@@ -36,7 +45,7 @@ class Feeding(models.Model):
         # set the default value for meal to be 'B'
         default=MEALS[0][0]
     )
-  
+
     finch = models.ForeignKey(Finch, on_delete=models.CASCADE)
 
     def __str__(self):
