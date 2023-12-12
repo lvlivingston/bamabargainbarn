@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>eCommerce Shop</title>
+    <title>Bama Bargain Barn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -16,15 +16,13 @@
         <nav>
             <div class="nav-wrapper">
                 <ul>
-                    <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;Finch Collector</a></li>
+                    <li><a href="{% url 'deals' %}" class="left brand-logo">&nbsp;&nbsp;Bama Bargain Barn</a></li>
                 </ul>
                 <ul class="right">
-                  <li><a href="{% url 'about' %}">About</a></li>
+                  <li><a href="{% url 'deals' %}">Today's Deals</a></li>
+                  <li><a href="{% url 'cart' %}" class="icon-container"><img src="{% static 'images/shoppingCart.png' %}" alt="Shopping Cart" style="width: 40px"></a></li>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
-                        <li><a href="{% url 'toys_index' %}">View All Toys</a></li>
-                        <li><a href="{% url 'finches_create' %}">Add a Finch</a></li>
-                        <li><a href="{% url 'index' %}">View All My Finches</a></li>
+                        <li><a href="{% url 'profile' %}">Profile</a></li>
                         <li>
                             <form action="{% url 'logout' %}" method="POST">
                                 {% csrf_token %}

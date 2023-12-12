@@ -17,7 +17,8 @@ The end result will be a responsive website with the ability to purchase one or 
 
 ---
 ### **Tech Stack**
-A responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe
+The project will be a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
+
 
 ###### **API Details**
 The goal is to utilize the third-party payment API from [Stripe](https://stripe.com/docs/implementation-guides/core-payments) (which allows free test development).

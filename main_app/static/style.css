@@ -17,3 +17,13 @@ footer.page-footer {
   padding-top: 0;
   text-align: right;
 }
+
+.icon-container {
+  text-align: center;
+  width: 40px;
+}
+
+.small-icon {
+  width: 60px;
+  display: inline-block;
+}
