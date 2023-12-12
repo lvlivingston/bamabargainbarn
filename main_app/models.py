@@ -25,6 +25,7 @@ class Finch(models.Model):
     description = models.TextField(max_length=250)
     mass = models.CharField(max_length=10)
     diet = models.TextField(max_length=250)
+    toys = models.ManyToManyField(Toy)
 
     def __str__(self):
         return self.name
@@ -58,7 +59,7 @@ class Feeding(models.Model):
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
-    cat = models.ForeignKey(Finch, on_delete=models.CASCADE)
+    finch = models.ForeignKey(Finch, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Photo for finch_id: {self.finch_id} @{self.url}"
