@@ -4,6 +4,10 @@ import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import FeedingForm
 from .models import Finch, Toy, Photo
 
@@ -15,12 +19,14 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def finches_index(request):
-  finches = Finch.objects.all()
-  return render(request, 'finches/index.html', {
-    'finches': finches
-  })
+  finches = Finch.objects.filter(user=request.user)
+  # You could also retrieve the logged in user's cats like this
+  # cats = request.user.cat_set.all()
+  return render(request, 'finches/index.html', { 'finches': finches })
 
+@login_required
 def finches_detail(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
     id_list = finch.toys.all().values_list('id')
@@ -33,18 +39,27 @@ def finches_detail(request, finch_id):
         'toys': toys_finch_doesnt_have
     })
 
-class FinchCreate(CreateView):
+class FinchCreate(LoginRequiredMixin, CreateView):
   model = Finch
   fields = ['name', 'scientificname', 'mass', 'description', 'diet']
 
-class FinchUpdate(UpdateView):
+  # This inherited method is called when a
+  # valid cat form is being submitted
+  def form_valid(self, form):
+    # Assign the logged in user (self.request.user)
+    form.instance.user = self.request.user  # form.instance is the cat
+    # Let the CreateView do its job as usual
+    return super().form_valid(form)
+
+class FinchUpdate(LoginRequiredMixin, UpdateView):
   model = Finch
   fields = ['scientificname', 'mass', 'description', 'diet']
 
-class FinchDelete(DeleteView):
+class FinchDelete(LoginRequiredMixin, DeleteView):
   model = Finch
   success_url = '/finches'
 
+@login_required
 def add_feeding(request, finch_id):
   # create a ModelForm instance using the data in request.POST
   form = FeedingForm(request.POST)
@@ -57,33 +72,36 @@ def add_feeding(request, finch_id):
     new_feeding.save()
   return redirect('detail', finch_id=finch_id)
 
-class ToyList(ListView):
+class ToyList(LoginRequiredMixin, ListView):
   model = Toy
 
-class ToyDetail(DetailView):
+class ToyDetail(LoginRequiredMixin, DetailView):
   model = Toy
 
-class ToyCreate(CreateView):
+class ToyCreate(LoginRequiredMixin, CreateView):
   model = Toy
   fields = '__all__'
 
-class ToyUpdate(UpdateView):
+class ToyUpdate(LoginRequiredMixin, UpdateView):
   model = Toy
   fields = ['name', 'color']
 
-class ToyDelete(DeleteView):
+class ToyDelete(LoginRequiredMixin, DeleteView):
   model = Toy
   success_url = '/toys'
 
+@login_required
 def assoc_toy(request, finch_id, toy_id):
   # Note that you can pass a toy's id instead of the whole toy object
   Finch.objects.get(id=finch_id).toys.add(toy_id)
   return redirect('detail', finch_id=finch_id)
 
+@login_required
 def unassoc_toy(request, finch_id, toy_id):
   Finch.objects.get(id=finch_id).toys.remove(toy_id)
   return redirect('detail', finch_id=finch_id)
 
+@login_required
 def add_photo(request, finch_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
@@ -103,3 +121,22 @@ def add_photo(request, finch_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('detail', finch_id=finch_id)
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      # This will add the user to the database
+      user = form.save()
+      # This is how we log a user in via code
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  # A bad POST or a GET request, so render signup.html with an empty form
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
