@@ -1,7 +1,9 @@
+import uuid
+import boto3
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Finch, Toy
+from .models import Finch, Toy, Photo
 from .forms import FeedingForm
 
 # Define the home view
