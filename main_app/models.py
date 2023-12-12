@@ -27,6 +27,8 @@ class Finch(models.Model):
     diet = models.TextField(max_length=250)
     toys = models.ManyToManyField(Toy)
 
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.name
 
