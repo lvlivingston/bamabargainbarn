@@ -1,29 +1,26 @@
-# ![ADD Banner Photo]('change to relational link"./src/images/final/finalreadmeBanner.jpg"')
-An eCommerce web application created by Leah Livingston.
+# **Bama Bargain Barn**
+An eCommerce web application created by Leah Livingston
 
-[Click Here to Check out the Web Application Now]('change to app link"https://fitforecast-dc33e66f392f.herokuapp.com/"')
 
 ---
 ### **Project Idea and Description**
 
-My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to keep it simple, while showing off new skills: 
+My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to keep it simple, while showing off my new skills in: 
 1. Django
 2. Python
 3. PostgreSQL, and
-4. an eCommerce functionality utilizing the API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python) 
+4. eCommerce functionality through utilization of the [Stripe](https://stripe.com/docs/development/quickstart?lang=python) payments API. 
 
-Without a clear picture on the details, the idea is to build a responsive website with the ability to purchase a product. 
-
-[Click Here to Check out the Web Application Now]('change to app link"https://fitforecast-dc33e66f392f.herokuapp.com/"')
+The end result will be a responsive website with the ability to purchase one or several products for sale at the "Bama Bargain Barn".
 
 
 
 ---
 ### **Tech Stack**
-It will be a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
+A responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe
 
 ###### **API Details**
-The web application utilizes two third-party APIs. The first is for payments from [Stripe](https://stripe.com/docs/implementation-guides/core-payments) (which allows free test development).
+The goal is to utilize the third-party payment API from [Stripe](https://stripe.com/docs/implementation-guides/core-payments) (which allows free test development).
 
 [ADD MORE DESCRIPTION HERE ONCE GETTING SETUP]
 
@@ -33,7 +30,7 @@ The web application utilizes two third-party APIs. The first is for payments fro
 
 ---
 ### **ERD**
-![ERD](./images/erdPitch.png)
+![ERD Pitch](./images/erdPitchWireframe.png)
 
 
 
@@ -50,8 +47,8 @@ The web application utilizes two third-party APIs. The first is for payments fro
 ---
 ### **Screenshots of the Web Application**
 
-###### **Home Page**
-![Wireframes]('change to relational link"./src/images/final/currentWireframes.png"')
+###### **Mobile View**
+![Wireframe Pitch](./images/wireframesPitch.png)
 
 
 
@@ -66,18 +63,18 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, and Ben Manley fo
 ### **MVP Goals**
 
 ###### User Stories
-- [ ] AAU, I want to see information on a landing page without having to log-in.
+- [ ] AAU, I want to see products for sale on a landing page without having to log-in.
 - [ ] AAU, I want the ability to purchase a product.
 
 ###### Style
 - [ ] Include basic CSS to successfully utilize the web application
-- [ ] Include top hamburger navigation including 'Home', 'Shop', and 'Shopping Cart' page links
-- [ ] Include 3 individual page views, including:  'Home', 'Shop', and 'Shopping Cart' screens
+- [ ] Include top hamburger navigation including 'Home' and 'Shopping Cart' page links
+- [ ] Include two individual page views, including:  'Home' and 'Shopping Cart' screens
 - [ ] Include visual optimization for mobile view
 
 ###### Functionality
-- [ ] Include shopping cart functionality 
 - [ ] Include Stripe payments API for ability to purchase a product 
+- [ ] Include shopping cart functionality 
 
 
 
