@@ -5,10 +5,7 @@ An eCommerce web application created by Leah Livingston
 
 ---
 ### **Tech Stack**
-My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to create a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
-
-###### **API Details**
-Utilized to implement eCommerce functionality and the ability to accept payments via the third-party payment API from [Stripe](https://stripe.com/docs/implementation-guides/core-payments).
+My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to create a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from [Stripe](https://stripe.com/docs/implementation-guides/core-payments).
 
 
 
