@@ -18,12 +18,14 @@ footer.page-footer {
   text-align: right;
 }
 
+/* styles.css (or your CSS file) */
 .icon-container {
-  text-align: center;
-  width: 40px;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 .small-icon {
-  width: 60px;
-  display: inline-block;
+  width: 30px;
+  height: 30px;
 }

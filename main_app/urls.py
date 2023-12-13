@@ -2,11 +2,11 @@ from django.urls import path
 from . import views
 	
 urlpatterns = [
-	path('', views.deals, name='home'),
+	# path('', views.deals, name='home'),
 	path('deals/', views.deals, name='deals'),
 	path('cart/', views.cart, name='cart'),
+    path('deals/<int:product_id>/', views.product_detail, name='product'),
 	# path('profile/', views.profile, name='profile'),
-    # path('finches/<int:finch_id>/', views.finches_detail, name='detail'),
     # path('finches/create/', views.FinchCreate.as_view(), name='finches_create'),
     # path('finches/<int:pk>/update/', views.FinchUpdate.as_view(), name='finches_update'),
     # path('finches/<int:pk>/delete/', views.FinchDelete.as_view(), name='finches_delete'),

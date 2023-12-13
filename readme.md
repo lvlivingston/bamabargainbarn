@@ -1,31 +1,33 @@
-# **Bama Bargain Barn**
+# **Bama Bargain Barn Pitch**
 An eCommerce web application created by Leah Livingston
-
-
----
-### **Project Idea and Description**
-
-My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to keep it simple, while showing off my new skills in: 
-1. Django
-2. Python
-3. PostgreSQL, and
-4. eCommerce functionality through utilization of the [Stripe](https://stripe.com/docs/development/quickstart?lang=python) payments API. 
-
-The end result will be a responsive website with the ability to purchase one or several products for sale at the "Bama Bargain Barn".
 
 
 
 ---
 ### **Tech Stack**
-The project will be a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
-
+My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to create a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
 
 ###### **API Details**
-The goal is to utilize the third-party payment API from [Stripe](https://stripe.com/docs/implementation-guides/core-payments) (which allows free test development).
+Utilized to implement eCommerce functionality and the ability to accept payments via the third-party payment API from [Stripe](https://stripe.com/docs/implementation-guides/core-payments).
 
-[ADD MORE DESCRIPTION HERE ONCE GETTING SETUP]
 
-![ADD API Details]('change to relational link"./public/images/pitch/apiDetails.png"')
+
+---
+### **Description**
+
+The end result will be a responsive website with the ability to purchase one or several products for sale at the "Bama Bargain Barn". The project is designed to be simple, while showing off my new skills in: 
+
+1. Django
+2. Python
+3. PostgreSQL, and
+4. eCommerce functionality through utilization of the [Stripe](https://stripe.com/docs/development/quickstart?lang=python) payments API. 
+
+
+
+
+---
+### **Wireframes (Mobile View)**
+![Wireframe Pitch](./images/wireframesPitch.png)
 
 
 
@@ -46,17 +48,18 @@ The goal is to utilize the third-party payment API from [Stripe](https://stripe.
 
 
 ---
-### **Screenshots of the Web Application**
+### **Sprint Schedule**
 
-###### **Mobile View**
-![Wireframe Pitch](./images/wireframesPitch.png)
+The projected schedule will be as follows:
 
-
-
----
-### **Credit**
-
-A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, and Ben Manley for your support. 
+- Day 1 (12/14 - Thurs.): Complete file structure setup
+- Day 2 (12/15 - Fri.):   Complete models, urls, views, and test data setup 
+- Day 3 (12/16 - Sat.):   Complete necessary html and css for basic navigation  
+- Day 4 (12/17 - Sun.):   Connect Stripe payments API
+- Day 5 (12/18 - Mon.):   Create Shopping Cart and Checkout features
+- Day 6 (12/19 - Tues.):  Complete eCommerce functionality
+- Day 7 (12/20 - Wed.):   Polish CSS styling
+- Day 8 (12/21 - Thurs.): Presentation   
 
 
 
@@ -69,7 +72,7 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, and Ben Manley fo
 
 ###### Style
 - [ ] Include basic CSS to successfully utilize the web application
-- [ ] Include top hamburger navigation including 'Home' and 'Shopping Cart' page links
+- [ ] Include top hamburger navigation, including: 'Home' and 'Shopping Cart' page links
 - [ ] Include two individual page views, including:  'Home' and 'Shopping Cart' screens
 - [ ] Include visual optimization for mobile view
 

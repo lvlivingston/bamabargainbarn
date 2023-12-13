@@ -8,15 +8,18 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import FeedingForm
-from .models import Finch, Toy, Photo
+# from .forms import FeedingForm
+from .models import Customer, Product, Photo
 
 def deals(request):
-  return render(request, 'about.html')
+  return render(request, 'deals.html')
 
 def cart(request):
   # Include an .html file extension - unlike when rendering EJS templates
   return render(request, 'cart.html')
+
+def product_detail(request):
+  return render(request, 'product.html')
 
 # @login_required
 # def finches_index(request):

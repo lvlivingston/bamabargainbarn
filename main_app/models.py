@@ -10,23 +10,32 @@ MEALS = (
     ('D', 'Dinner')
 )
 
-class Toy(models.Model):
-  name = models.CharField(max_length=50)
-  color = models.CharField(max_length=20)
+class Product(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.CharField(max_length=250)
+    category = models.CharField(max_length=20)
+    image = models.ImageField()
 
-  def __str__(self):
-    return self.name
+    def __str__(self):
+        return self.name
 
-  def get_absolute_url(self):
-    return reverse('toys_detail', kwargs={'pk': self.id})
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'pk': self.id})
   
-class Finch(models.Model):
+class Customer(models.Model):
     name = models.CharField(max_length=50)
-    scientificname = models.CharField(max_length=100)
-    description = models.TextField(max_length=250)
-    mass = models.CharField(max_length=10)
-    diet = models.TextField(max_length=250)
-    toys = models.ManyToManyField(Toy)
+    firstName = models.CharField(max_length=25)
+    lastName = models.CharField(max_length=25)
+    email = models.EmailField(max_length=75)
+    streetAddress = models.TextField(max_length=100)
+    city = models.CharField(max_length=25)
+    state = models.TextField(max_length=2)
+    zip = models.CharField(max_length=25)
+    phone = models.CharField(max_length=10)
+    
+    products = models.ManyToManyField(Product)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -34,23 +43,25 @@ class Finch(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'finch_id': self.id})
+        return reverse('profile', kwargs={'customer_id': self.id})
     
-    def fed_for_today(self):
-        return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
+    # def fed_for_today(self):
+    #     return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 
 # Add new Feeding model below Cat model
-class Feeding(models.Model):
-    date = models.DateField('Feeding Date')
-    meal = models.CharField(
-        max_length=1,
-        # add the 'choices' field option
-        choices=MEALS,
-        # set the default value for meal to be 'B'
-        default=MEALS[0][0]
-    )
+class Order(models.Model):
+    date = models.DateField('Order Placed')
+    numOfItems = models.IntegerField()
+    # meal = models.CharField(
+    #     max_length=1,
+    #     # add the 'choices' field option
+    #     choices=MEALS,
+    #     # set the default value for meal to be 'B'
+    #     default=MEALS[0][0]
+    # )
+    products = models.ManyToManyField(Product)
 
-    finch = models.ForeignKey(Finch, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):
         # Nice method for obtaining the friendly value of a Field.choice
@@ -62,8 +73,8 @@ class Feeding(models.Model):
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
-    finch = models.ForeignKey(Finch, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Photo for finch_id: {self.finch_id} @{self.url}"
+        return f"Photo for product_id: {self.product_id} @{self.url}"
 

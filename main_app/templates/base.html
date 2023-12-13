@@ -21,7 +21,7 @@
                 <ul class="right">
                   <li><a href="{% url 'deals' %}">Today's Deals</a></li>
                   <li><a href="{% url 'cart' %}" class="icon-container"><img src="{% static 'images/shoppingCart.png' %}" alt="Shopping Cart" style="width: 40px"></a></li>
-                    {% if user.is_authenticated %}
+                    <!-- {% if user.is_authenticated %}
                         <li><a href="{% url 'profile' %}">Profile</a></li>
                         <li>
                             <form action="{% url 'logout' %}" method="POST">
@@ -31,7 +31,7 @@
                         {% else %}
                         <li><a href="{% url 'signup' %}">Sign Up</a></li>
                         <li><a href="{% url 'login' %}">Log In</a></li>
-                    {% endif %}
+                    {% endif %} -->
                 </ul>
             </div>
         </nav>
@@ -41,7 +41,7 @@
         {% endblock %}
     </main>
   	<!-- <footer class="page-footer">
-      <div class="right">All Rights Reserved, &copy; 2023 Finch Collector &nbsp;</div>
+      <div class="right">All Rights Reserved, &copy; 2023 Bama Bargain Barn &nbsp;</div>
     </footer> -->
   </body>
 </html>
