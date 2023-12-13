@@ -12,7 +12,9 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Customer, Product, Photo
 
 def deals(request):
-  return render(request, 'deals.html')
+    # Fetch all products from the database
+    products = Product.objects.all()
+    return render(request, 'deals.html', {'products': products})
 
 def cart(request):
   # Include an .html file extension - unlike when rendering EJS templates
