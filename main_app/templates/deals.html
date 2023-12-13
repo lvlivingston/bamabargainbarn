@@ -3,5 +3,20 @@
 {% block content %}
     <h1>Today's Deals</h1>
     <hr>
-    <p>Add products here</p>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <h2>{{ product.title }}</h2>
+                    <p>Description: {{ product.description }}</p>
+                    <p>Price: ${{ product.price }}</p>
+                    <!-- Add more details as needed -->
+                    <a href="{% url 'product' product.id %}">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No deals available at the moment.</p>
+    {% endif %}
 {% endblock %}

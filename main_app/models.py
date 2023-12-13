@@ -3,13 +3,6 @@ from django.urls import reverse
 from datetime import date
 from django.contrib.auth.models import User
 
-# A tuple of 2-tuples
-MEALS = (
-    ('B', 'Breakfast'),
-    ('L', 'Lunch'),
-    ('D', 'Dinner')
-)
-
 class Product(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
@@ -17,9 +10,11 @@ class Product(models.Model):
     description = models.CharField(max_length=250)
     category = models.CharField(max_length=20)
     image = models.ImageField()
+    rating = models.DecimalField(max_digits=2, decimal_places=1)
+    totalRating = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'pk': self.id})
@@ -51,21 +46,14 @@ class Customer(models.Model):
 # Add new Feeding model below Cat model
 class Order(models.Model):
     date = models.DateField('Order Placed')
-    numOfItems = models.IntegerField()
-    # meal = models.CharField(
-    #     max_length=1,
-    #     # add the 'choices' field option
-    #     choices=MEALS,
-    #     # set the default value for meal to be 'B'
-    #     default=MEALS[0][0]
-    # )
+    totalItems = models.IntegerField()
     products = models.ManyToManyField(Product)
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):
         # Nice method for obtaining the friendly value of a Field.choice
-        return f"{self.get_meal_display()} on {self.date}"
+        return f"Order on {self.date}"
     
     # change the default sort
     class Meta:

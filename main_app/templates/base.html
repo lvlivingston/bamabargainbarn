@@ -22,17 +22,6 @@
                 <ul class="right">
                   <li><a href="{% url 'deals' %}">Today's Deals</a></li>
                   <li><a href="{% url 'cart' %}" class="icon-container"><img src="{% static 'images/shoppingCart.png' %}" alt="Shopping Cart" style="width: 40px"></a></li>
-                    <!-- {% if user.is_authenticated %}
-                        <li><a href="{% url 'profile' %}">Profile</a></li>
-                        <li>
-                            <form action="{% url 'logout' %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit">Logout</button>
-                            </form></li>
-                        {% else %}
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                        <li><a href="{% url 'login' %}">Log In</a></li>
-                    {% endif %} -->
                 </ul>
             </div>
         </nav>
