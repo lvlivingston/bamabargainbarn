@@ -32,7 +32,7 @@ The end result will be a responsive website with the ability to purchase one or 
 
 ---
 ### **ERD**
-![ERD Pitch](./images/erdForPitch.png)
+![ERD Pitch](./images/erdPitchWireframe.png)
 
 
 
@@ -42,11 +42,7 @@ The end result will be a responsive website with the ability to purchase one or 
 | HTTP METHOD | URL | CRUD | Response | Notes |
 | -------------------- | ------------- | ---- | -------- | ----- |
 | `full index of items`  |   |   |   |   |
-| GET | `/deals` | Read | View Products | retrieves available products in database  |
-| GET | `/deals/:product_id` | Read | View Product Details | retrieves detailed information on product  |
-| POST | `/cart` | Create | Add to cart | adds product to shopping cart  |
-| POST | `/cart` | Create | Review Cart | adds all products to checkout |
-| GET | `/fetch-stripe-data` | Read | Connect to Stripe | calls payment API to process payment  |
+| GET | `/fetch-stripe-data` | Read | View API connection | retrieves ability to process payments  |
 
 
 
