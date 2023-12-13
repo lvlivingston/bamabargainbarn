@@ -42,10 +42,10 @@ The end result will be a responsive website with the ability to purchase one or 
 | HTTP METHOD | URL | CRUD | Response | Notes |
 | -------------------- | ------------- | ---- | -------- | ----- |
 | `full index of items`  |   |   |   |   |
-| GET | `/deals` | Read | View Products | retrieves available products in database  |
-| GET | `/deals/:product_id` | Read | View Product Details | retrieves detailed information on product  |
+| GET | `/products` | Read | View Products | retrieves available products in database  |
+| GET | `/products/:product_id` | Read | View Product Details | retrieves detailed information on product  |
 | POST | `/cart` | Create | Add to cart | adds product to shopping cart  |
-| POST | `/cart` | Create | Review Cart | adds all products to checkout |
+| POST | `/cart` | Create | Review Cart | adds all products to checkout and get shipping details|
 | GET | `/fetch-stripe-data` | Read | Connect to Stripe | calls payment API to process payment  |
 
 
