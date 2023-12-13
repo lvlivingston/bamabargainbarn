@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from .forms import FeedingForm
+from django.http import JsonResponse
 from .models import Customer, Product, Order, Photo
 
 def deals(request):
@@ -64,36 +65,16 @@ def increase_quantity(request, product_id):
     # Redirect back to the cart page or refresh the cart section
     return redirect('cart')
 
+
 def delete_item(request, product_id):
-    if request.method == 'DELETE':
-        print(f"Product ID received: {product_id}, Type: {type(product_id)}")
-
-        cart = request.session.get('cart', {})
-
-        try:
-            # Convert product_id to integer
-            product_id = int(product_id)
-
-            # Use pop method to safely remove the item from the cart
-            removed_item = cart.pop(product_id, None)
-
-            if removed_item is not None:
-                print(f"Item {product_id} removed from cart. Updated cart: {cart}")
-            else:
-                print(f"Item {product_id} not found in the cart. Cart: {cart}")
-
-            request.session['cart'] = cart
-
-            # Return a JSON response indicating success
-            return JsonResponse({'success': True})
-
-        except ValueError as e:
-            # Handle the case where product_id is not a valid integer
-            print(f"Error processing product_id {product_id}: {e}")
-            return JsonResponse({'success': False, 'error': f'Invalid product_id: {product_id}'})
+    cart = request.session.get('cart', {})
+    
+    if str(product_id) in cart:
+        del cart[str(product_id)]
+        request.session['cart'] = cart
+        return JsonResponse({'success': True})
     else:
-        # Return a method not allowed response for other request methods
-        return JsonResponse({'success': False, 'error': 'Method not allowed'}, status=405)
+        return JsonResponse({'success': False, 'error': 'Item not found'}, status=404)
 
 
 # @login_required
