@@ -3,13 +3,23 @@
 {% block content %}
     <h1>Shopping Cart</h1>
     <hr>
-    {% if cart_items %}
-        <ul>
-            {% for item in cart_items %}
-                <li>{{ item.title }} - ${{ item.price }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
+
+    {% with cart=request.session.cart %}
+        {% if cart_items %}
+            <ul>
+                {% for item in cart_items %}
+                    <li>
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-width: 30px;">
+                        {% endif %}
+                        <h5>{{ item.title }}</h5>
+                        <p>Price: ${{ item.price }}</p>
+                        <p>Quantity: {{ item.quantity }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Your shopping cart is empty.</p>
+        {% endif %}
+    {% endwith %}
 {% endblock %}

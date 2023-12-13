@@ -23,7 +23,21 @@ def cart(request):
     cart_item_ids = request.session.get('cart', [])
     cart_items = Product.objects.filter(id__in=cart_item_ids)
 
-    return render(request, 'cart.html', {'cart_items': cart_items})
+    # Create a dictionary to store each cart item along with its quantity
+    cart_items_with_quantity = {}
+
+    for item in cart_items:
+        # Get the quantity of the item from the session
+        item_id_str = str(item.id)
+        item_quantity = request.session['cart'].count(item_id_str)
+
+        # Add the item and quantity to the dictionary
+        cart_items_with_quantity[item] = {
+            'quantity': item_quantity,
+            'item_id': item.id  # Add item ID for reference in the template
+        }
+
+    return render(request, 'cart.html', {'cart_items': cart_items_with_quantity})
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
