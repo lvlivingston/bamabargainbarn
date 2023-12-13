@@ -25,8 +25,9 @@ def cart(request):
 
     return render(request, 'cart.html', {'cart_items': cart_items})
 
-def product_detail(request):
-  return render(request, 'product.html')
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    return render(request, 'product.html', {'product': product})
 
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
