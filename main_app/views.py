@@ -1,7 +1,7 @@
 import os
 import uuid
 import boto3
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from django.contrib.auth import login
@@ -17,11 +17,28 @@ def deals(request):
     return render(request, 'deals.html', {'products': products})
 
 def cart(request):
-  # Include an .html file extension - unlike when rendering EJS templates
-  return render(request, 'cart.html')
+    # You can implement your cart logic here to retrieve and display cart items.
+    # For a simple example, we'll just retrieve the cart items from the session.
+
+    cart_item_ids = request.session.get('cart', [])
+    cart_items = Product.objects.filter(id__in=cart_item_ids)
+
+    return render(request, 'cart.html', {'cart_items': cart_items})
 
 def product_detail(request):
   return render(request, 'product.html')
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    # You can implement your cart logic here, for example, using sessions or a dedicated cart model.
+
+    # For a simple example, let's assume we're using sessions to store cart items.
+    cart = request.session.get('cart', [])
+    cart.append(product_id)
+    request.session['cart'] = cart
+
+    return redirect('cart')
 
 # @login_required
 # def finches_index(request):

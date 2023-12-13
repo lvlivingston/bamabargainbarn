@@ -10,6 +10,7 @@ urlpatterns = [
 	path('deals/', views.deals, name='deals'),
 	path('cart/', views.cart, name='cart'),
     path('deals/<int:product_id>/', views.product_detail, name='product'),
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
 	# path('profile/', views.profile, name='profile'),
     # path('finches/create/', views.FinchCreate.as_view(), name='finches_create'),
     # path('finches/<int:pk>/update/', views.FinchUpdate.as_view(), name='finches_update'),

@@ -12,13 +12,15 @@ class Product(models.Model):
     image = models.ImageField()
     rating = models.DecimalField(max_digits=2, decimal_places=1)
     totalRating = models.IntegerField()
+    quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'pk': self.id})
-  
+    
+
 class Customer(models.Model):
     name = models.CharField(max_length=50)
     firstName = models.CharField(max_length=25)
@@ -40,24 +42,28 @@ class Customer(models.Model):
     def get_absolute_url(self):
         return reverse('profile', kwargs={'customer_id': self.id})
     
-    # def fed_for_today(self):
-    #     return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
-
-# Add new Feeding model below Cat model
+    
 class Order(models.Model):
     date = models.DateField('Order Placed')
     totalItems = models.IntegerField()
-    products = models.ManyToManyField(Product)
-
+    items = models.ManyToManyField('OrderItem', related_name='order_items')  # Add related_name
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):
-        # Nice method for obtaining the friendly value of a Field.choice
         return f"Order on {self.date}"
-    
-    # change the default sort
+
     class Meta:
         ordering = ['-date']
+
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.product.title} in Order {self.order.date}"
+
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
