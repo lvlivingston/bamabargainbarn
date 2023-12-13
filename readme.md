@@ -45,7 +45,7 @@ The end result will be a responsive website with the ability to purchase one or 
 | GET | `/products` | Read | View Products | retrieves available products in database  |
 | GET | `/products/:product_id` | Read | View Product Details | retrieves detailed information on product  |
 | POST | `/cart` | Create | Add to cart | adds product to shopping cart  |
-| POST | `/cart` | Create | Review Cart | adds all products to checkout and get shipping details|
+| GET | `/cart` | Read | Review Cart | adds all products to checkout and get shipping details|
 | GET | `/fetch-stripe-data` | Read | Connect to Stripe | calls payment API to process payment  |
 
 
