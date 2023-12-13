@@ -21,7 +21,6 @@ The end result will be a responsive website with the ability to purchase one or 
 
 
 
-
 ---
 ### **Wireframes (Mobile View)**
 ![Wireframe Pitch](./images/wireframesPitch.png)
