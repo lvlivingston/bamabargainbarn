@@ -8,6 +8,9 @@
         <ul>
             {% for product in products %}
                 <li>
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 100px;">
+                    {% endif %}
                     <h2>{{ product.title }}</h2>
                     <p>Description: {{ product.description }}</p>
                     <p>Price: ${{ product.price }}</p>

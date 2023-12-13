@@ -1,5 +1,9 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
+
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 	
 urlpatterns = [
 	path('', views.deals, name='deals'),
@@ -21,3 +25,7 @@ urlpatterns = [
     # path('toys/<int:pk>/delete/', views.ToyDelete.as_view(), name='toys_delete'),
     # path('accounts/signup/', views.signup, name='signup'),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
