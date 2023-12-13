@@ -6,14 +6,13 @@
         <ul>
             <li>
                 {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 30px;">
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 200px;">
                 {% endif %}
-                    <h2>{{ product.title }}</h2>
+                    <h3>{{ product.title }}</h3>
                     <p>Description: {{ product.description }}</p>
-                    <p>Price: ${{ product.price }}</p>
-                    <p>Category: ${{ product.category }}</p>
-                    <p>Rating: ${{ product.rating }}</p>
-                    <p>Vote: ${{ product.totalRating }}</p>
+                    <p>Category: {{ product.category }}</p>
+                    <p>Rating: {{ product.rating }} out of 5 from {{ product.totalRating }} happy customers</p>
+                    <p>Price: ${{ product.price }} USD</p>
                     <form action="{% url 'add_to_cart' product.id %}" method="post">
                         {% csrf_token %}
                         <button type="submit">Add to Cart</button>

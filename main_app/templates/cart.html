@@ -14,7 +14,17 @@
                         {% endif %}
                         <h5>{{ item.title }}</h5>
                         <p>Price: ${{ item.price }}</p>
-                        <p>Quantity: {{ item.quantity }}</p>
+                        
+                        <form method="GET" action="{% url 'increase_quantity' item.id %}">
+                            <label for="quantity-{{ item.id }}">Quantity:</label>
+                            <select name="quantity" id="quantity-{{ item.id }}">
+                                {% for i in "12345" %}
+                                    <option value="{{ i }}" {% if item.quantity == i|add:'0' %}selected{% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Update Quantity</button>
+                        </form>
+                        <a href="{% url 'delete_item' item.id %}">Remove Item</a>
                     </li>
                 {% endfor %}
             </ul>

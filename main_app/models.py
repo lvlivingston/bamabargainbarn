@@ -13,6 +13,7 @@ class Product(models.Model):
     rating = models.DecimalField(max_digits=2, decimal_places=1)
     totalRating = models.IntegerField()
     quantity = models.PositiveIntegerField(default=1)
+    inventory = models.PositiveIntegerField(default=3)
 
     def __str__(self):
         return self.title
