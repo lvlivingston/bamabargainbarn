@@ -13,31 +13,20 @@ from django.http import JsonResponse
 from .models import Customer, Product, Order, Photo
 
 def deals(request):
-    # Fetch all products from the database
     products = Product.objects.all()
     return render(request, 'deals.html', {'products': products})
 
 def cart(request):
-    # You can implement your cart logic here to retrieve and display cart items.
-    # For a simple example, we'll just retrieve the cart items from the session.
-
     cart_item_ids = request.session.get('cart', [])
     cart_items = Product.objects.filter(id__in=cart_item_ids)
-
-    # Create a dictionary to store each cart item along with its quantity
     cart_items_with_quantity = {}
-
     for item in cart_items:
-        # Get the quantity of the item from the session
         item_id_str = str(item.id)
         item_quantity = request.session['cart'].get(item_id_str, 0)
-
-        # Add the item and quantity to the dictionary
         cart_items_with_quantity[item] = {
             'quantity': item_quantity,
-            'item_id': item.id  # Add item ID for reference in the template
+            'item_id': item.id 
         }
-
     return render(request, 'cart.html', {'cart_items': cart_items_with_quantity})
 
 def product_detail(request, product_id):
@@ -46,37 +35,24 @@ def product_detail(request, product_id):
 
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-
-    # You can implement your cart logic here, for example, using sessions or a dedicated cart model.
-
-    # For a simple example, let's assume we're using sessions to store cart items.
-    cart = request.session.get('cart', {})  # Initialize cart as a dictionary
-    cart_item_quantity = cart.get(product_id, 0)  # Get the current quantity of the product in the cart
-    cart[product_id] = cart_item_quantity + 1  # Add the product to the cart or increment the quantity
-
+    cart = request.session.get('cart', {})
+    cart_item_quantity = cart.get(product_id, 0)
+    cart[product_id] = cart_item_quantity + 1
     request.session['cart'] = cart
-
     return redirect('cart')
 
 def increase_quantity(request, product_id):
     if request.method == 'GET':
         quantity = int(request.GET.get('quantity', 1))
-
-        # Ensure 'cart' exists in the session and is a dictionary
         if 'cart' not in request.session or not isinstance(request.session['cart'], dict):
             request.session['cart'] = {}
-
-        # Update the quantity for the specific product
         request.session['cart'][str(product_id)] = quantity
         request.session.modified = True
-
-    # Redirect back to the cart page or refresh the cart section
     return redirect('cart')
 
 
 def delete_item(request, product_id):
     cart = request.session.get('cart', {})
-    
     if str(product_id) in cart:
         del cart[str(product_id)]
         request.session['cart'] = cart
