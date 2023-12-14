@@ -13,7 +13,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='static/images/')
     rating = models.DecimalField(max_digits=2, decimal_places=1)
     totalRating = models.IntegerField()
-    quantity = models.PositiveIntegerField(default=1)
     inventory = models.PositiveIntegerField(default=3)
 
     def __str__(self):
@@ -44,13 +43,13 @@ class Customer(models.Model):
     
     
 class Order(models.Model):
-    date = models.DateField('Order Placed', default=timezone.now)  # Use default to set the current time
-    order_token = models.CharField(max_length=256, unique=True)
-    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    total_items = models.IntegerField(default=0)
-    paid = models.BooleanField(default=False)
     csrf_token = models.CharField(max_length=255, blank=True, null=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    order_token = models.CharField(max_length=256, unique=True)
+    date = models.DateField('Order Placed', default=timezone.now)  # Use default to set the current time
+    total_items = models.IntegerField(default=0)
+    paid = models.BooleanField(default=False)
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"Order on {self.date}"
