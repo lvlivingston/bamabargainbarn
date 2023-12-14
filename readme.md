@@ -55,14 +55,14 @@ The end result will be a responsive website with the ability to purchase one or 
 
 The projected schedule will be as follows:
 
-- Day 1 (12/14 - Thurs.): Complete file structure setup
-- Day 2 (12/15 - Fri.):   Complete models, urls, views, and test data setup 
-- Day 3 (12/16 - Sat.):   Complete necessary html and css for basic navigation  
-- Day 4 (12/17 - Sun.):   Connect Stripe payments API
-- Day 5 (12/18 - Mon.):   Create Shopping Cart and Checkout features
-- Day 6 (12/19 - Tues.):  Complete eCommerce functionality
-- Day 7 (12/20 - Wed.):   Polish CSS styling
-- Day 8 (12/21 - Thurs.): Presentation   
+- [X] Day 1 (12/14 - Thurs.): Complete file structure setup
+- [X] Day 2 (12/15 - Fri.):   Complete models, urls, views, and test data setup 
+- [X] Day 3 (12/16 - Sat.):   Complete necessary html and css for basic navigation  
+- [ ] Day 4 (12/17 - Sun.):   Create Deals, Shopping Cart, and Checkout views
+- [ ] Day 5 (12/18 - Mon.):   Connect Stripe payments API
+- [ ] Day 6 (12/19 - Tues.):  Complete eCommerce functionality
+- [ ] Day 7 (12/20 - Wed.):   Polish CSS styling
+- [ ] Day 8 (12/21 - Thurs.): Presentation   
 
 
 
