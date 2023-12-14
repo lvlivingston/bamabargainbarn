@@ -2,6 +2,7 @@ import os
 import uuid
 import boto3
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from django.contrib.auth import login
@@ -11,25 +12,38 @@ from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from .forms import FeedingForm
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from django.db import transaction
-from .models import Customer, Product, Order, OrderItem, Photo
+from .models import Customer, Product, Order, OrderItem
 from django.http import JsonResponse
 
-def deals(request):
+def products(request):
     products = Product.objects.all()
-    return render(request, 'deals.html', {'products': products})
+    return render(request, 'products.html', {'products': products})
 
 def cart(request):
     cart_item_ids = request.session.get('cart', [])
-    cart_items = Product.objects.filter(id__in=cart_item_ids)
+    order_token = request.session.get('order_token')
+
+    if order_token:
+        order = get_object_or_404(Order, order_token=order_token)
+    else:
+        # Generate a new order token
+        order_token = str(uuid.uuid4())
+        request.session['order_token'] = order_token
+
+        # Create a new order
+        order = Order.objects.create(order_token=order_token, total_items=0)
+
+    cart_items = order.items.all()
     cart_items_with_quantity = {}
+
     for item in cart_items:
-        item_id_str = str(item.id)
-        item_quantity = request.session['cart'].get(item_id_str, 0)
-        cart_items_with_quantity[item] = {
-            'quantity': item_quantity,
-            'item_id': item.id 
+        cart_items_with_quantity[item.product] = {
+            'quantity': item.quantity,
+            'item_id': item.product.id,
         }
+
     return render(request, 'cart.html', {'cart_items': cart_items_with_quantity})
 
 def product_detail(request, product_id):
@@ -38,17 +52,9 @@ def product_detail(request, product_id):
 
 @transaction.atomic
 @csrf_exempt
+@csrf_protect
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-
-    # Retrieve the cart from the session
-    cart = request.session.get('cart', {})
-
-    # Update the cart with the selected product
-    cart_item_quantity = cart.get(product_id, 0)
-    cart[product_id] = cart_item_quantity + 1
-    request.session['cart'] = cart
-    request.session.modified = True
 
     # Check if an order already exists in the session
     order_token = request.session.get('order_token')
@@ -70,8 +76,20 @@ def add_to_cart(request, product_id):
 
     # Associate the product with the order
     order_item, created = order.items.get_or_create(product=product)
-    order_item.quantity += 1
-    order_item.save()
+
+    if not created:
+        # If the OrderItem already existed, increase the quantity
+        order_item.quantity += 1
+        order_item.save()
+
+    # Retrieve the cart from the session
+    cart = request.session.get('cart', {})
+
+    # Update the cart with the selected product
+    cart_item_quantity = cart.get(product_id, 0)
+    cart[product_id] = cart_item_quantity + 1
+    request.session['cart'] = cart
+    request.session.modified = True
 
     return redirect('cart')
 

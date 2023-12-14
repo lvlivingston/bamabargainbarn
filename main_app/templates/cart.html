@@ -6,19 +6,18 @@
 
     {% with cart=request.session.cart %}
         {% if cart_items %}
-            <ul>
-                {% for product in cart_items %}
+        <ul>
+            {% for product, item_info in cart_items.items %}
                 <li>
                     {% if product.image %}
                         <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 30px;">
                     {% endif %}
                     <h5>{{ product.title }}</h5>
                     <p>Price: ${{ product.price }}</p>
-                    
                     <form method="POST" action="{% url 'update_quantity' product.id %}" onsubmit="updateQuantity(event, '{{ product.id }}')">
                         {% csrf_token %}
                         <label for="quantity-{{ product.id }}">Quantity:</label>
-                        <input type="number" name="quantity" id="quantity-{{ product.id }}" value="{{ product.quantity }}" min="1" max="5">
+                        <input type="number" name="quantity" id="quantity-{{ product.id }}" value="{{ item_info.quantity }}" min="1" max="5">
                         <noscript><input type="submit" value="Update Quantity"></noscript>
                     </form>
                     <button onclick="updateQuantity('{{ product.id }}')">Update Quantity</button>
@@ -26,7 +25,7 @@
                     <button onclick="removeItem('{{ product.id }}')">Remove Item</button>
                 </li>
             {% endfor %}
-            </ul>
+        </ul>
         {% else %}
             <p>Your shopping cart is empty.</p>
         {% endif %}

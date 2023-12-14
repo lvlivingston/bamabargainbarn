@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from main_app.models import Customer, Product  # Adjust as needed
 from django.urls import reverse
 from datetime import date
 from django.utils import timezone
@@ -65,12 +64,4 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} of {self.product.title} in Order {self.order.date}"
-
-
-class Photo(models.Model):
-    url = models.CharField(max_length=200)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Photo for product_id: {self.product_id} @{self.url}"
 

@@ -6,11 +6,11 @@ from . import views
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 	
 urlpatterns = [
-	path('', views.deals, name='deals'),
-	path('products/', views.deals, name='deals'),
+	path('', views.products, name='products'),
+	path('products/', views.products, name='products'),
 	path('cart/', views.cart, name='cart'),
     path('products/<int:product_id>/', views.product_detail, name='product'),
-    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('cart/update/<int:product_id>/', views.update_quantity, name='update_quantity'),
     path('cart/delete/<int:product_id>/', views.delete_item, name='delete_item'),
 	# path('profile/', views.profile, name='profile'),
