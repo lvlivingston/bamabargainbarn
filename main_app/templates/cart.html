@@ -15,16 +15,13 @@
                     <h5>{{ product.title }}</h5>
                     <p>Price: ${{ product.price }}</p>
                     
-                    <form method="GET" action="{% url 'increase_quantity' product.id %}">
+                    <form method="POST" action="{% url 'update_quantity' product.id %}" onsubmit="updateQuantity(event, '{{ product.id }}')">
+                        {% csrf_token %}
                         <label for="quantity-{{ product.id }}">Quantity:</label>
-                        <select name="quantity" id="quantity-{{ product.id }}">
-                            {% for i in "12345" %}
-                                <option value="{{ i }}" {% if product.quantity == i|add:'0' %}selected{% endif %}>{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                        <button type="submit">Update Quantity</button>
+                        <input type="number" name="quantity" id="quantity-{{ product.id }}" value="{{ product.quantity }}" min="1" max="5">
+                        <noscript><input type="submit" value="Update Quantity"></noscript>
                     </form>
-
+                    <button onclick="updateQuantity('{{ product.id }}')">Update Quantity</button>
                     <!-- Use JavaScript to send a DELETE request -->
                     <button onclick="removeItem('{{ product.id }}')">Remove Item</button>
                 </li>
@@ -66,6 +63,36 @@
             const value = `; ${document.cookie}`;
             const parts = value.split(`; ${name}=`);
             if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        // Function to update quantity asynchronously
+        function updateQuantity(event, itemId) {
+            // Prevent the form from submitting in the traditional way
+            event.preventDefault();
+
+            // Get the selected quantity from the input field
+            const selectedQuantity = document.getElementById(`quantity-${itemId}`).value;
+
+            // Send an AJAX request to update the quantity
+            fetch(`/cart/update_quantity/${itemId}/${selectedQuantity}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response
+                console.log(data);
+
+                // Check if the update was successful
+                if (data.success) {
+                    // Reload the current page to refresh the cart view
+                    location.reload();
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
     </script>
 {% endblock %}

@@ -5,12 +5,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from django.contrib.auth import login
+from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from .forms import FeedingForm
+from django.views.decorators.csrf import csrf_exempt
+from django.db import transaction
+from .models import Customer, Product, Order, OrderItem, Photo
 from django.http import JsonResponse
-from .models import Customer, Product, Order, Photo
 
 def deals(request):
     products = Product.objects.all()
@@ -33,23 +36,56 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'product.html', {'product': product})
 
+@transaction.atomic
+@csrf_exempt
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+
+    # Retrieve the cart from the session
     cart = request.session.get('cart', {})
+
+    # Update the cart with the selected product
     cart_item_quantity = cart.get(product_id, 0)
     cart[product_id] = cart_item_quantity + 1
     request.session['cart'] = cart
     request.session.modified = True
+
+    # Check if an order already exists in the session
+    order_token = request.session.get('order_token')
+
+    if not order_token:
+        # Generate a unique identifier for the order
+        order_token = str(uuid.uuid4())
+
+        # Store the order identifier in the session
+        request.session['order_token'] = order_token
+
+        # Create the order with the unique identifier
+        order = Order.objects.create(order_token=order_token, total_items=1)  # Initialize total_items with 1
+    else:
+        # Order already exists, retrieve it from the database
+        order = get_object_or_404(Order, order_token=order_token)
+        order.total_items += 1  # Increment total_items
+        order.save()
+
+    # Associate the product with the order
+    order_item, created = order.items.get_or_create(product=product)
+    order_item.quantity += 1
+    order_item.save()
+
     return redirect('cart')
 
-def increase_quantity(request, product_id):
-    if request.method == 'GET':
-        quantity = int(request.GET.get('quantity', 1))
+def update_quantity(request, product_id):
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
         if 'cart' not in request.session or not isinstance(request.session['cart'], dict):
             request.session['cart'] = {}
         request.session['cart'][str(product_id)] = quantity
         request.session.modified = True
-    return redirect('cart')
+        return JsonResponse({'success': True})
+    else:
+        # Handle other HTTP methods if needed
+        return JsonResponse({'success': False, 'error': 'Invalid method'})
 
 
 def delete_item(request, product_id):
