@@ -12,7 +12,7 @@ urlpatterns = [
     path('products/<int:product_id>/', views.product_detail, name='product'),
     path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('cart/increase/<int:product_id>/', views.increase_quantity, name='increase_quantity'),
-    path('delete_item/<int:product_id>/', views.delete_item, name='delete_item'),
+    path('cart/delete/<int:product_id>/', views.delete_item, name='delete_item'),
 	# path('profile/', views.profile, name='profile'),
     # path('finches/create/', views.FinchCreate.as_view(), name='finches_create'),
     # path('finches/<int:pk>/update/', views.FinchUpdate.as_view(), name='finches_update'),
@@ -30,5 +30,5 @@ urlpatterns = [
 ]
 
 # Serve media files in development
-if settings.DEBUG:
+if settings.DEBUG: 
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

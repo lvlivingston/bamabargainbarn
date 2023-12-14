@@ -39,6 +39,7 @@ def add_to_cart(request, product_id):
     cart_item_quantity = cart.get(product_id, 0)
     cart[product_id] = cart_item_quantity + 1
     request.session['cart'] = cart
+    request.session.modified = True
     return redirect('cart')
 
 def increase_quantity(request, product_id):
@@ -56,6 +57,7 @@ def delete_item(request, product_id):
     if str(product_id) in cart:
         del cart[str(product_id)]
         request.session['cart'] = cart
+        request.session.modified = True
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False, 'error': 'Item not found'}, status=404)

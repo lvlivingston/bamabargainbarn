@@ -38,7 +38,7 @@
     <script>
         function removeItem(itemId) {
             // Send a DELETE request to the server
-            fetch(`/delete_item/${itemId}/`, {
+            fetch(`/cart/delete/${itemId}/`, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
@@ -46,12 +46,21 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Handle the response as needed
+                // Handle the response
                 console.log(data);
+    
+                // Check if the deletion was successful
+                if (data.success) {
+                    // Optionally, you can redirect to the cart page
+                    // window.location.href = '/cart/';
+    
+                    // Alternatively, you can reload the current page to refresh the cart view
+                    location.reload();
+                }
             })
             .catch(error => console.error('Error:', error));
         }
-
+    
         // Function to get CSRF token from cookies
         function getCookie(name) {
             const value = `; ${document.cookie}`;

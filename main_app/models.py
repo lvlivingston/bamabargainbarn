@@ -49,6 +49,7 @@ class Order(models.Model):
     totalItems = models.IntegerField()
     items = models.ManyToManyField('OrderItem', related_name='order_items')  # Add related_name
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Order on {self.date}"
