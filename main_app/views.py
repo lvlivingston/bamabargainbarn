@@ -30,7 +30,7 @@ def cart(request):
     for item in cart_items:
         # Get the quantity of the item from the session
         item_id_str = str(item.id)
-        item_quantity = request.session['cart'].count(item_id_str)
+        item_quantity = request.session['cart'].get(item_id_str, 0)
 
         # Add the item and quantity to the dictionary
         cart_items_with_quantity[item] = {
@@ -50,8 +50,10 @@ def add_to_cart(request, product_id):
     # You can implement your cart logic here, for example, using sessions or a dedicated cart model.
 
     # For a simple example, let's assume we're using sessions to store cart items.
-    cart = request.session.get('cart', [])
-    cart.append(product_id)
+    cart = request.session.get('cart', {})  # Initialize cart as a dictionary
+    cart_item_quantity = cart.get(product_id, 0)  # Get the current quantity of the product in the cart
+    cart[product_id] = cart_item_quantity + 1  # Add the product to the cart or increment the quantity
+
     request.session['cart'] = cart
 
     return redirect('cart')
@@ -59,9 +61,15 @@ def add_to_cart(request, product_id):
 def increase_quantity(request, product_id):
     if request.method == 'GET':
         quantity = int(request.GET.get('quantity', 1))
-        # Update the session data with the new quantity
+
+        # Ensure 'cart' exists in the session and is a dictionary
+        if 'cart' not in request.session or not isinstance(request.session['cart'], dict):
+            request.session['cart'] = {}
+
+        # Update the quantity for the specific product
         request.session['cart'][str(product_id)] = quantity
         request.session.modified = True
+
     # Redirect back to the cart page or refresh the cart section
     return redirect('cart')
 
