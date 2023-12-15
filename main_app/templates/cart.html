@@ -3,7 +3,10 @@
 {% block content %}
     <h1>Shopping Cart</h1>
     <hr>
-
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <button type="submit">Checkout and Pay</button>
+    </form>
     {% if order.items.all %}
         <ul>
             {% for item in order.items.all %}

@@ -53,6 +53,9 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+    def orderSubtotal(self):
+        return sum(item.sub_item_price for item in self.items.all())
+
     def __str__(self):
         return f"Order on {self.date}"
 
@@ -61,11 +64,18 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    csrf_token = models.CharField(max_length=255, blank=True, null=True, unique=True)
-    session_id = models.CharField(max_length=255, blank=True, null=True)
+    csrf_token = models.CharField(max_length=256, blank=True, null=True, unique=True)
+    session_id = models.CharField(max_length=256, blank=True, null=True)
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    sub_item_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        # Calculate and set the subtotal before saving
+        self.subtotal = self.product.price * self.quantity
+        self.sub_item_price = self.subtotal
+        super(OrderItem, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.quantity} of {self.product.title} in Order {self.order.date}"
