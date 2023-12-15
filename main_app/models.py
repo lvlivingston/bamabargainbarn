@@ -46,8 +46,8 @@ class Customer(models.Model):
     
 class Order(models.Model):
     csrf_token = models.CharField(max_length=255, blank=True, null=True, unique=True)
+    session_id = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    order_token = models.CharField(max_length=256, unique=True)
     date = models.DateField('Order Placed', default=timezone.now)  # Use default to set the current time
     total_items = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
@@ -61,6 +61,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    csrf_token = models.CharField(max_length=255, blank=True, null=True, unique=True)
+    session_id = models.CharField(max_length=255, blank=True, null=True)
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)

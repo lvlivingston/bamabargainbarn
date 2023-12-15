@@ -8,6 +8,7 @@ from django.views.generic import ListView, DetailView
 # from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.sessions.models import Session
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from .forms import FeedingForm
@@ -16,91 +17,122 @@ from django.views.decorators.csrf import csrf_protect
 from django.db import transaction
 from .models import Customer, Product, Order, OrderItem
 from django.http import JsonResponse
+from django.utils import timezone
 
 def products(request):
     products = Product.objects.all()
     return render(request, 'products.html', {'products': products})
 
 def cart(request):
-    cart_item_ids = request.session.get('cart', [])
-    order_token = request.session.get('order_token')
+    # Ensure the session is created
+    if not request.session.session_key:
+        request.session.create()
 
-    if order_token:
-        order = get_object_or_404(Order, order_token=order_token)
-    else:
-        # Generate a new order token
-        order_token = str(uuid.uuid4())
-        request.session['order_token'] = order_token
+    # Get the current session key
+    session_id = request.session.session_key
 
-        # Create a new order
-        order = Order.objects.create(order_token=order_token, total_items=0)
+    # Get or create the order for the current session
+    order, created = Order.objects.get_or_create(session_id=session_id, paid=False)
 
-    cart_items = order.items.all()
-    cart_items_with_quantity = {}
-
-    for item in cart_items:
-        cart_items_with_quantity[item.product] = {
-            'quantity': item.quantity,
-            'item_id': item.product.id,
-        }
-
-    return render(request, 'cart.html', {'cart_items': cart_items_with_quantity})
+    return render(request, 'cart.html', {'order': order})
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'product.html', {'product': product})
 
-@transaction.atomic
-@csrf_exempt
-@csrf_protect
 def add_to_cart(request, product_id):
+    # Get the product using its id
     product = get_object_or_404(Product, id=product_id)
 
-    # Check if an order already exists in the session
-    order_token = request.session.get('order_token')
+    # Ensure the session is created
+    if not request.session.session_key:
+        request.session.create()
 
-    if not order_token:
-        # Generate a unique identifier for the order
-        order_token = str(uuid.uuid4())
+    # Get the current session key
+    session_id = request.session.session_key
 
-        # Store the order identifier in the session
-        request.session['order_token'] = order_token
+    # Check if there's an existing order for the current session
+    order = Order.objects.filter(session_id=session_id, paid=False).first()
 
-        # Create the order with the unique identifier
-        order = Order.objects.create(order_token=order_token, total_items=1)  # Initialize total_items with 1
-    else:
-        # Order already exists, retrieve it from the database
-        order = get_object_or_404(Order, order_token=order_token)
-        order.total_items += 1  # Increment total_items
-        order.save()
+    # If an order doesn't exist, create a new one
+    if not order:
+        order = Order.objects.create(session_id=session_id, paid=False)
 
-    # Associate the product with the order
-    order_item, created = order.items.get_or_create(product=product)
+    # Check if there's an existing OrderItem for the current product in the order
+    order_item = order.items.filter(product=product).first()
 
-    if not created:
-        # If the OrderItem already existed, increase the quantity
-        order_item.quantity += 1
-        order_item.save()
+    # If the order item doesn't exist, create a new one
+    if not order_item:
+        order_item = OrderItem(order=order, product=product, quantity=0)
 
-    # Retrieve the cart from the session
-    cart = request.session.get('cart', {})
+    # Increment the quantity and total_items
+    order_item.quantity += 1
+    order_item.save()
 
-    # Update the cart with the selected product
-    cart_item_quantity = cart.get(product_id, 0)
-    cart[product_id] = cart_item_quantity + 1
-    request.session['cart'] = cart
-    request.session.modified = True
+    order.total_items += 1
+    order.save()
 
     return redirect('cart')
 
-def update_quantity(request, product_id):
+
+
+
+
+
+
+
+    # if not order_token:
+    #     # Generate a unique identifier for the order
+    #     order_token = str(uuid.uuid4())
+
+    #     # Store the order identifier in the session
+    #     request.session['order_token'] = order_token
+
+    #     # Create the order with the unique identifier
+    #     order = Order.objects.create(order_token=order_token, total_items=1)  # Initialize total_items with 1
+    #     orderItem = OrderItem.objects.create(order_token=order_token, quantity=1)
+    # else:
+    #     # Order already exists, retrieve it from the database
+    #     order = get_object_or_404(Order, order_token=order_token)
+    #     orderItem = get_object_or_404(OrderItem, order_token=order_token)
+    #     order.total_items += 1  # Increment total_items
+    #     orderItem.quantity += 1  # Increment total_items
+    #     order.save()
+    #     orderItem.save()
+
+    # # Retrieve the cart from the session
+    # cart = request.session.get('cart', {})
+
+    # # Update the cart with the selected product
+    # cart_item_quantity = cart.get(product_id, 0)
+    # cart[product_id] = cart_item_quantity + 1
+    # request.session['order_token'] = order_token
+    # request.session.modified = True
+
+    # return redirect('cart')
+
+def update_quantity(request, product_id, orderitem_id):
+    order_token = request.session.get('order_token')
+
     if request.method == 'POST':
-        quantity = int(request.POST.get('quantity', 1))
-        if 'cart' not in request.session or not isinstance(request.session['cart'], dict):
-            request.session['cart'] = {}
-        request.session['cart'][str(product_id)] = quantity
-        request.session.modified = True
-        return JsonResponse({'success': True})
+        orderitem_id = request.POST.get('orderitem_id')
+        quantity = int(request.POST.get('orderitem_id.quantity', 1))
+        order_item = get_object_or_404(OrderItem, orderitem__id=orderitem_id, product__id=product_id)
+
+
+        # Check if there is an active order for the session
+        if 'order_token' in request.session:
+            order_token = request.session['order_token']
+            request.session['order_token'] = order_token
+            request.session.modified = True
+            # If the order item already exists, update the quantity
+            if not created:
+                order_item.quantity = quantity
+                order_item.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'No active order'})
+            return redirect('cart')
     else:
         # Handle other HTTP methods if needed
         return JsonResponse({'success': False, 'error': 'Invalid method'})

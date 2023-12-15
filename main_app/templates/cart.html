@@ -4,97 +4,20 @@
     <h1>Shopping Cart</h1>
     <hr>
 
-    {% with cart=request.session.cart %}
-        {% if cart_items %}
+    {% if order.items.all %}
         <ul>
-            {% for product, item_info in cart_items.items %}
+            {% for item in order.items.all %}
                 <li>
-                    {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 30px;">
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" style="max-width: 30px;">
                     {% endif %}
-                    <h5>{{ product.title }}</h5>
-                    <p>Price: ${{ product.price }}</p>
-                    <form method="POST" action="{% url 'update_quantity' product.id %}" onsubmit="updateQuantity(event, '{{ product.id }}')">
-                        {% csrf_token %}
-                        <label for="quantity-{{ product.id }}">Quantity:</label>
-                        <input type="number" name="quantity" id="quantity-{{ product.id }}" value="{{ item_info.quantity }}" min="1" max="5">
-                        <noscript><input type="submit" value="Update Quantity"></noscript>
-                    </form>
-                    <button onclick="updateQuantity('{{ product.id }}')">Update Quantity</button>
-                    <!-- Use JavaScript to send a DELETE request -->
-                    <button onclick="removeItem('{{ product.id }}')">Remove Item</button>
+                    <h5>{{ item.product.title }}</h5>
+                    <p>Price: ${{ item.product.price }}</p>
+                    <p>Quantity: {{ item.quantity }}</p>
                 </li>
             {% endfor %}
         </ul>
-        {% else %}
-            <p>Your shopping cart is empty.</p>
-        {% endif %}
-    {% endwith %}
-
-    <script>
-        function removeItem(itemId) {
-            const csrfToken = getCookie('csrftoken');
-            console.log(`Removing item with ID: ${itemId}`);
-            // Send a DELETE request to the server
-            fetch(`/cart/delete/${itemId}/`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRFToken': csrfToken,  // Include CSRF token in the headers
-                    'Content-Type': 'application/json', // Specify content type
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response
-                console.log(data);
-    
-                // Check if the deletion was successful
-                if (data.success) {
-                    // Optionally, you can redirect to the cart page
-                    // window.location.href = '/cart/';
-    
-                    // Alternatively, you can reload the current page to refresh the cart view
-                    location.reload();
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    
-        // Function to get CSRF token from cookies
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
-
-        // Function to update quantity asynchronously
-        function updateQuantity(event, itemId) {
-            // Prevent the form from submitting in the traditional way
-            event.preventDefault();
-
-            // Get the selected quantity from the input field
-            const selectedQuantity = document.getElementById(`quantity-${itemId}`).value;
-
-            // Send an AJAX request to update the quantity
-            fetch(`/cart/update_quantity/${itemId}/${selectedQuantity}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response
-                console.log(data);
-
-                // Check if the update was successful
-                if (data.success) {
-                    // Reload the current page to refresh the cart view
-                    location.reload();
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
+    {% else %}
+        <p>Your shopping cart is empty.</p>
+    {% endif %}
 {% endblock %}
