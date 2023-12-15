@@ -89,6 +89,7 @@ def add_to_cart(request, product_id):
 
 def update_quantity(request, order_item_id):
     order_item = get_object_or_404(OrderItem, id=order_item_id)
+    order = order_item.order
 
     if request.method == 'POST':
         new_quantity = int(request.POST.get('quantity', 1))
@@ -98,46 +99,23 @@ def update_quantity(request, order_item_id):
     return redirect('cart')
 
 
-def delete_item(request, product_id):
-    cart = request.session.get('cart', {})
-    str_product_id = str(product_id)
+def delete_item(request, order_item_id):
+    # Get the order item from the database
+    order_item = get_object_or_404(OrderItem, id=order_item_id)
 
-    # Additional debugging statements
-    print(f"Attempting to delete item with ID: {str_product_id}")
-    print(f"Current Cart: {cart}")
+    # Get the associated order
+    order = order_item.order
 
-    # Get the order from the session (assuming you store the order ID in the session)
-    order_id = request.session.get('order_id')
+    # Decrement the total_items in the order by the number in the quantity field
+    order.total_items -= order_item.quantity
+    order.save()
 
-    try:
-        order = Order.objects.get(id=order_id)
-        order_item = order.orderitem_set.get(product_id=product_id)
+    # Delete the order item
+    order_item.delete()
 
-        print(f"OrderItem ID to be deleted: {order_item.id}")
-        print(f"OrderItem Quantity before deletion: {order_item.quantity}")
+    return redirect('cart')
 
-        # Delete the OrderItem
-        order_item.delete()
-
-        print(f"OrderItem deleted successfully")
-
-        # Update the total_items in the Order
-        order.total_items -= 1
-        order.save()
-
-        # Remove the item from the cart session
-        del cart[str_product_id]
-        request.session['cart'] = cart
-        request.session.modified = True
-
-        return JsonResponse({'success': True})
-    except Order.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'Order not found'}, status=404)
-    except OrderItem.DoesNotExist:
-        # Additional debugging statement
-        print(f"OrderItem not found for product ID: {str_product_id}")
-        return
-
+    
 
 # @login_required
 # def finches_index(request):
