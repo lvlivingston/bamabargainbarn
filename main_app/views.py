@@ -108,13 +108,43 @@ def update_quantity(request, product_id):
 
 def delete_item(request, product_id):
     cart = request.session.get('cart', {})
-    if str(product_id) in cart:
-        del cart[str(product_id)]
+    str_product_id = str(product_id)
+
+    # Additional debugging statements
+    print(f"Attempting to delete item with ID: {str_product_id}")
+    print(f"Current Cart: {cart}")
+
+    # Get the order from the session (assuming you store the order ID in the session)
+    order_id = request.session.get('order_id')
+
+    try:
+        order = Order.objects.get(id=order_id)
+        order_item = order.orderitem_set.get(product_id=product_id)
+
+        print(f"OrderItem ID to be deleted: {order_item.id}")
+        print(f"OrderItem Quantity before deletion: {order_item.quantity}")
+
+        # Delete the OrderItem
+        order_item.delete()
+
+        print(f"OrderItem deleted successfully")
+
+        # Update the total_items in the Order
+        order.total_items -= 1
+        order.save()
+
+        # Remove the item from the cart session
+        del cart[str_product_id]
         request.session['cart'] = cart
         request.session.modified = True
+
         return JsonResponse({'success': True})
-    else:
-        return JsonResponse({'success': False, 'error': 'Item not found'}, status=404)
+    except Order.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Order not found'}, status=404)
+    except OrderItem.DoesNotExist:
+        # Additional debugging statement
+        print(f"OrderItem not found for product ID: {str_product_id}")
+        return
 
 
 # @login_required

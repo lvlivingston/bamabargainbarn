@@ -33,11 +33,14 @@
 
     <script>
         function removeItem(itemId) {
+            const csrfToken = getCookie('csrftoken');
+            console.log(`Removing item with ID: ${itemId}`);
             // Send a DELETE request to the server
             fetch(`/cart/delete/${itemId}/`, {
                 method: 'DELETE',
                 headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),  // Include CSRF token
+                    'X-CSRFToken': csrfToken,  // Include CSRF token in the headers
+                    'Content-Type': 'application/json', // Specify content type
                 },
             })
             .then(response => response.json())
