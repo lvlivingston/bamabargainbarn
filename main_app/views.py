@@ -72,6 +72,11 @@ def add_to_cart(request, product_id):
     if not order_item:
         order_item = OrderItem(order=order, product=product, quantity=0)
 
+    # Check if the quantity is already 5 or more
+    if order_item.quantity >= 5:
+        messages.warning(request, "You can only order up to 5 of each item.")
+        return redirect('products')
+
     # Increment the quantity and total_items
     order_item.quantity += 1
     order_item.save()
