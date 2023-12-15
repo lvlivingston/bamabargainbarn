@@ -13,7 +13,12 @@
                     {% endif %}
                     <h5>{{ item.product.title }}</h5>
                     <p>Price: ${{ item.product.price }}</p>
-                    <p>Quantity: {{ item.quantity }}</p>
+                    <form method="POST" action="{% url 'update_quantity' order_item_id=item.id %}" class="update-form">
+                        {% csrf_token %}
+                        <label for="quantity-{{ item.product.id }}">Quantity:</label>
+                        <input type="number" name="quantity" id="quantity-{{ item.product.id }}" value="{{ item.quantity }}" min="1" max="5">
+                        <button type="submit">Update Quantity</button>
+                    </form>
                 </li>
             {% endfor %}
         </ul>
