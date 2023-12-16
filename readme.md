@@ -1,13 +1,105 @@
-# **Bama Bargain Barn Pitch**
-An eCommerce web application created by Leah Livingston
+# ![Banner Photo](./images/apisuccess.png)
+A Python with Django and PostgreSQL eCommerce web application created by Leah Livingston
+
+
+
+---
+### **Project Description**
+
+🐴 Howdy 🤠 and welcome to the "🏆 Bama 🏈 Bargain 🉐 Barn 🚜" an online eCommerce web application where you can buy from our current inventory of Alabama Football merchandise <i>cough cough Roll Tide cough</i>. We shy away from items that require sizing, because, well you know... inventory; but you'll find our current deals online 24/7/365 and they're a bargain!
+
+[Click Here to Check out the Shop Now](https://bamabargainbarn.herokuapp.com/)
 
 
 
 ---
 ### **Tech Stack**
-My goal for the capstone project is to add a well-rounded fourth piece to my Github portfolio. The idea is to create a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
+It's a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python).
 
 ###### **API Details**
+The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) payments API is connected via test mode only. Currently, I have successfully created the shopping cart and checkout views, and connected to the API as well. Once finished with rendering of the client-side views, I will create a payments button to complete the Order.
+
+![API Details](./images/apisuccess.png)
+
+
+
+---
+### **ERDs**
+![ERD](./images/erdProgress.png)
+
+
+
+---
+### **Restful Routing Chart**
+
+| HTTP METHOD | URL | CRUD | Response | Notes |
+| -------------------- | ------------- | ---- | -------- | ----- |
+| `full index of items`  |   |   |   |   |
+| GET | `/products` | Read | View Products | retrieves available products in database  |
+| GET | `/products/:product_id` | Read | View Product Details | retrieves detailed information on product  |
+| GET | `/cart` | Read | View Cart | retrieves items in shopping cart of current session  |
+| POST | `/cart/add/:product_id/` | Create | Add to Cart | adds a product to current shopping cart session |
+| POST | `/cart/update/:product_id/` | Update | Update Cart | updates quantity and current shopping cart session |
+| POST | `/cart/delete/:product_id/` | Delete | Delete Item | deletes item from current shopping cart session |
+| GET | `/checkout` | Read | Review Order | opportunity to review order and provide shipping details |
+| POST | `/checkout/pay` | Create | Pay for Order | adds payment to complete order |
+| GET | `/fetch-stripe-data` | Read | Stripe Connection | calls payment API to process payment  |
+
+
+
+---
+### **Wireframes (Mobile View)**
+![Current Wireframes](./src/images/final/ADD HERE.png)
+
+
+
+---
+### *
+A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for your support.
+
+
+
+---
+### **Next Steps**
+
+##### Style
+- [ ] Create Pay Now button on Checkout page
+- [ ] Clean up CSS structure on client-side views for better user experience 
+- [ ] Polish CSS styling following a 'Brand Kit'
+
+##### Functionality
+- [ ] Connect Pay Now button on Stripe Payments API to see what view is provided.
+- [ ] Finish building out Order model to know what information should be passed.
+
+
+[See Current Version of App Here](https://bamabargainbarn.herokuapp.com/)
+
+
+
+
+
+
+
+
+
+
+
+# **Planning Materials & Original Pitch below**
+
+
+### **Brainstorm**
+I utilized utilized MIRO for brainstorming, strategizing, planning, and tracking development progress.
+
+![Planning](./images/miro.png)
+
+
+---
+### **Tech Stack**
+
+My goal for the capstone project was to add a well-rounded fourth piece to my Github portfolio. The idea was to create a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from Stripe.
+
+###### **API Details**
+
 The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) payments API will be connected via test mode only. Currently, I have successfully connected to the API, but haven't created the user view yet.
 
 ![API Details](./images/apisuccess.png)
@@ -26,12 +118,14 @@ The end result will be a responsive website with the ability to purchase one or 
 
 ---
 ### **Wireframes (Mobile View)**
+
 ![Wireframe Pitch](./images/wireframesPitch.png)
 
 
 
 ---
 ### **ERD**
+
 ![ERD Pitch](./images/erdForPitch.png)
 
 
@@ -58,9 +152,9 @@ The projected schedule will be as follows:
 - [X] Day 1 (12/14 - Thurs.): Complete file structure setup
 - [X] Day 2 (12/15 - Fri.):   Complete models, urls, views, and test data setup 
 - [X] Day 3 (12/16 - Sat.):   Complete necessary html and css for basic navigation  
-- [ ] Day 4 (12/17 - Sun.):   Create Deals, Shopping Cart, and Checkout views
-- [ ] Day 5 (12/18 - Mon.):   Connect Stripe payments API
-- [ ] Day 6 (12/19 - Tues.):  Complete eCommerce functionality
+- [X] Day 4 (12/17 - Sun.):   Create Product, Shopping Cart, and Checkout views
+- [ ] Day 5 (12/18 - Mon.):   Create "Pay No"w" button and connect Stripe payments API
+- [ ] Day 6 (12/19 - Tues.):  Complete eCommerce functionality (data connection and styling)
 - [ ] Day 7 (12/20 - Wed.):   Polish CSS styling
 - [ ] Day 8 (12/21 - Thurs.): Presentation   
 
@@ -70,18 +164,22 @@ The projected schedule will be as follows:
 ### **MVP Goals**
 
 ###### User Stories
-- [ ] AAU, I want to see products for sale on a landing page without having to log-in.
+- [X] AAU, I want to see products for sale on a landing page without having to log-in.
+- [X] AAU, I want to see how many items are left in the inventory for each product.
+- [X] AAU, I want the ability to add a product to the shopping cart without having to log-in.
+- [X] AAU, I want the ability to delete a product to the shopping cart, also without having to log-in.
+- [X] AAU, I want the ability to leave the shop url and come back within 24h to find my items still in the shopping cart.
 - [ ] AAU, I want the ability to purchase a product.
 
 ###### Style
-- [ ] Include basic CSS to successfully utilize the web application
-- [ ] Include top hamburger navigation, including: 'Home' and 'Shopping Cart' page links
-- [ ] Include two individual page views, including:  'Home' and 'Shopping Cart' screens
+- [X] Include basic CSS to successfully utilize the web application
+- [X] Include top navigation, including: 'Products' and 'Shopping Cart' page links
+- [X] Include two individual page views, including: 'Proucts' and 'Shopping Cart' screens
 - [ ] Include visual optimization for mobile view
 
 ###### Functionality
+- [X] Include shopping cart functionality 
 - [ ] Include Stripe payments API for ability to purchase a product 
-- [ ] Include shopping cart functionality 
 
 
 
