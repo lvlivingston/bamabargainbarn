@@ -104,7 +104,7 @@ def update_quantity(request, order_item_id):
         order_item.save()
         messages.success(request, 'Quantity updated successfully.')
     else:
-        messages.error(request, f'Invalid quantity. Please choose a quantity between 1 and {product_inventory}.')
+        messages.error(request, f"We don't have that much in stock. You can choose from 1 and {product_inventory}.")
 
     return redirect('cart')
 
