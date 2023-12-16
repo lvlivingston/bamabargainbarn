@@ -19,6 +19,7 @@ from django.db.models import Sum
 from .models import Customer, Product, Order, OrderItem
 from django.http import JsonResponse
 from django.utils import timezone
+from decimal import Decimal
 
 def products(request):
     # Retrieve products with an inventory of at least 3
@@ -131,8 +132,12 @@ def checkout(request):
 
     # Calculate the sub_order_price
     sub_order_price = sum(item.quantity * item.product.price for item in order_items)
+    taxes = Decimal('3.95')
+    price_with_taxes = sub_order_price + taxes
+    shipping = Decimal('0.00')
+    price_with_shipping = price_with_taxes + shipping
 
-    return render(request, 'checkout.html', {'order': order, 'order_items': order_items, 'sub_order_price': sub_order_price})
+    return render(request, 'checkout.html', {'order': order, 'order_items': order_items, 'sub_order_price': sub_order_price, 'price_with_shipping': price_with_shipping})
     
 
 # @login_required
