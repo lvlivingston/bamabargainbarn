@@ -1,12 +1,12 @@
 # ![Banner Photo](./images/ADD BANNER.png)
-A Python with Django and PostgreSQL eCommerce web application created by Leah Livingston
+An eCommerce web application by Leah Livingston
 
 
 
 ---
 ### **Project Description**
 
-🐴 Howdy 🤠 and welcome to the "🏆 Bama 🏈 Bargain 🉐 Barn 🚜" an online eCommerce web application where you can buy from our current inventory of Alabama Football merchandise <i>cough cough Roll Tide cough</i>. We shy away from items that require sizing, because, well you know... inventory; but you'll find our current deals online 24/7/365 and they're a bargain!
+🐴 Howdy 🤠 and welcome to the "🏆 Bama 🏈 Bargain 🉐 Barn 🚜" an online eCommerce web application where you can buy from our current inventory of Alabama Football merchandise <i>cough cough Roll Tide cough</i>. We shy away from items that require sizing, because, well you know... inventory; but you'll find our current bargains online 24 / 7 / 365!
 
 [Click Here to Check out the Shop Now](https://bamabargainbarn.herokuapp.com/)
 
@@ -54,7 +54,7 @@ The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) paymen
 
 
 ---
-### *
+###  **Credit**
 A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for your support.
 
 
@@ -72,7 +72,7 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for 
 - [ ] Finish building out Order model to know what information should be passed.
 
 
-[See Current Version of App Here](https://bamabargainbarn.herokuapp.com/)
+[See Current Version of the Web App Here](https://bamabargainbarn.herokuapp.com/)
 
 
 
