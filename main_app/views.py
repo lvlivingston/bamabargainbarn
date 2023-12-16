@@ -26,6 +26,10 @@ def products(request):
     return render(request, 'products.html', {'products': products})
 
 def cart(request):
+        # Ensure the session is created
+    if not request.session.session_key:
+        request.session.create()
+
     # Get the current session key
     session_id = request.session.session_key
 
@@ -125,7 +129,10 @@ def checkout(request):
     # Get all order items for the current order
     order_items = OrderItem.objects.filter(order=order)
 
-    return render(request, 'checkout.html', {'order': order, 'order_items': order_items})
+    # Calculate the sub_order_price
+    sub_order_price = sum(item.quantity * item.product.price for item in order_items)
+
+    return render(request, 'checkout.html', {'order': order, 'order_items': order_items, 'sub_order_price': sub_order_price})
     
 
 # @login_required
