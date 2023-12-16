@@ -3,7 +3,6 @@
 {% block content %}
     <h1>Shopping Cart</h1>
     <hr>
-
     {% if order.items.all %}
         <ul>
             {% for item in order.items.all %}

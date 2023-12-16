@@ -115,7 +115,8 @@ def delete_item(request, order_item_id):
 
     return redirect('cart')
 
-    
+def checkout(request, order_id, order_item_id):
+    return render(request, 'checkout.html', {'order': order})
 
 # @login_required
 # def finches_index(request):
