@@ -115,8 +115,18 @@ def delete_item(request, order_item_id):
 
     return redirect('cart')
 
-def checkout(request, order_id, order_item_id):
-    return render(request, 'checkout.html', {'order': order})
+def checkout(request):
+    # Get the current session key
+    session_id = request.session.session_key
+
+    # Get the order for the current session
+    order = Order.objects.filter(session_id=session_id, paid=False).first()
+
+    # Get all order items for the current order
+    order_items = OrderItem.objects.filter(order=order)
+
+    return render(request, 'checkout.html', {'order': order, 'order_items': order_items})
+    
 
 # @login_required
 # def finches_index(request):
