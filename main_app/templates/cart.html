@@ -3,6 +3,13 @@
 {% block content %}
     <h1>Shopping Cart</h1>
     <hr>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form method="post" action="{% url 'checkout' %}">
         {% csrf_token %}
         <button type="submit">Checkout and Pay</button>
@@ -19,7 +26,7 @@
                     <form method="POST" action="{% url 'update_quantity' order_item_id=item.id %}" class="update-form">
                         {% csrf_token %}
                         <label for="quantity-{{ item.product.id }}">Quantity:</label>
-                        <input type="number" name="quantity" id="quantity-{{ item.product.id }}" value="{{ item.quantity }}" min="1" max="5">
+                        <input type="number" name="quantity" id="quantity-{{ item.product.id }}" value="{{ item.quantity }}" min="1" max="{{ item.product.inventory }}">
                         <button type="submit">Update Quantity</button>
                     </form>
                     <form method="DELETE" action="{% url 'delete_item' item.id %}" class="remove-form">

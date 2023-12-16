@@ -95,11 +95,16 @@ def add_to_cart(request, product_id):
 def update_quantity(request, order_item_id):
     order_item = get_object_or_404(OrderItem, id=order_item_id)
     order = order_item.order
+    new_quantity = int(request.POST.get('quantity', 0))
+    product_inventory = order_item.product.inventory
 
-    if request.method == 'POST':
-        new_quantity = int(request.POST.get('quantity', 1))
+    if 1 <= new_quantity <= product_inventory:
+        # If the new quantity is within the valid range, update the OrderItem
         order_item.quantity = new_quantity
         order_item.save()
+        messages.success(request, 'Quantity updated successfully.')
+    else:
+        messages.error(request, f'Invalid quantity. Please choose a quantity between 1 and {product_inventory}.')
 
     return redirect('cart')
 
