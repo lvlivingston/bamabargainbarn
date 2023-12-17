@@ -10,7 +10,7 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <form method="post" action="{% url 'checkout' %}">
+    <form method="post" action="{% url 'checkout' order.id %}">
         {% csrf_token %}
         <button type="submit">Checkout and Pay</button>
     </form>

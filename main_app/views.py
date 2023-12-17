@@ -20,6 +20,7 @@ from .models import Customer, Product, Order, OrderItem
 from django.http import JsonResponse
 from django.utils import timezone
 from decimal import Decimal
+from django.urls import reverse
 
 def products(request):
     # Retrieve products with an inventory of at least 3
@@ -27,7 +28,7 @@ def products(request):
     return render(request, 'products.html', {'products': products})
 
 def cart(request):
-        # Ensure the session is created
+    # Ensure the session is created
     if not request.session.session_key:
         request.session.create()
 
@@ -37,14 +38,12 @@ def cart(request):
     # Check if there's an existing order for the current session
     order, created = Order.objects.get_or_create(session_id=session_id, paid=False)
 
-    # Calculate total_items based on the quantity of associated OrderItems
-    total_items = order.items.aggregate(total_items=Sum('quantity'))['total_items'] or 0
+    # Your existing code to calculate total_items and update the order
 
-    # Update the total_items field in the Order model
-    order.total_items = total_items
-    order.save()
+    # Update the URL for the 'checkout' link
+    checkout_url = reverse('checkout', args=[order.id])  # Pass order_id as argument
 
-    return render(request, 'cart.html', {'order': order})
+    return render(request, 'cart.html', {'order': order, 'checkout_url': checkout_url})
 
 
 def product_detail(request, product_id):
@@ -125,7 +124,7 @@ def delete_item(request, order_item_id):
 
     return redirect('cart')
 
-def checkout(request):
+def checkout(request, order_id):
     # Get the current session key
     session_id = request.session.session_key
 
@@ -144,6 +143,9 @@ def checkout(request):
 
     return render(request, 'checkout.html', {'order': order, 'order_items': order_items, 'sub_order_price': sub_order_price, 'price_with_shipping': price_with_shipping})
     
+def pay(request, order_id):
+    messages.warning(request, "Pay button worked.")
+    return redirect('cart')
 
 # @login_required
 # def finches_index(request):
