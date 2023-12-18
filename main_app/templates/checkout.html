@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <h1>Checkout</h1>
@@ -28,4 +29,5 @@
     {% else %}
         <p>Your shopping cart is empty.</p>
     {% endif %}
+    <script src="{% static 'main.js' %}"></script>
 {% endblock %}
