@@ -4,16 +4,13 @@
     <h1>Shopping Cart</h1>
     <hr>
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
-    <form method="post" action="{% url 'checkout' order.id %}">
-        {% csrf_token %}
-        <button type="submit">Checkout and Pay</button>
-    </form>
+
     {% if order.items.all %}
         <ul>
             {% for item in order.items.all %}
@@ -29,15 +26,19 @@
                         <input type="number" name="quantity" id="quantity-{{ item.product.id }}" value="{{ item.quantity }}" min="1" max="{{ item.product.inventory }}">
                         <button type="submit">Update Quantity</button>
                     </form>
-                    <form method="DELETE" action="{% url 'delete_item' item.id %}" class="remove-form">
+                    <form method="POST" action="{% url 'delete_item' item.id %}" class="remove-form">
                         {% csrf_token %}
                         <button type="submit">Remove Item</button>
                     </form>
                 </li>
             {% endfor %}
         </ul>
+        <form method="post" action="{% url 'checkout' order.id %}">
+            {% csrf_token %}
+            <button type="submit">Checkout and Pay</button>
+        </form>
     {% else %}
-        <p>Your shopping cart is empty.</p>
-        <a href="{% url 'products' %}">Today's Deals</a>
+        <p>Your cart is empty.</p>
+        <a href="{% url 'products' %}">Find a Bargain Now</a>
     {% endif %}
 {% endblock %}

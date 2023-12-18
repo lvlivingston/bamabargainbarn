@@ -28,6 +28,7 @@
         </form>
     {% else %}
         <p>Your shopping cart is empty.</p>
+        <a href="{% url 'products' %}">Find a Bargain Now</a>
     {% endif %}
     <script src="{% static 'main.js' %}"></script>
 {% endblock %}

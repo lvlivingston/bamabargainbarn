@@ -38,6 +38,7 @@ def cart(request):
     # Check if there's an existing order for the current session
     order, created = Order.objects.get_or_create(session_id=session_id, paid=False)
 
+    print("Items in the order:", order.items.all())
     # Your existing code to calculate total_items and update the order
 
     # Update the URL for the 'checkout' link
