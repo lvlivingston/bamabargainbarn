@@ -57,7 +57,10 @@ class Order(models.Model):
         # Update total_items based on the sum of quantities of related OrderItems
         self.total_items = sum(item.quantity for item in self.items.all())
         self.save()
-        
+    
+    def get_absolute_url(self):
+        return reverse('checkout', args=[str(self.id)])
+
     def orderSubtotal(self):
         return sum(item.sub_item_price for item in self.items.all())
 

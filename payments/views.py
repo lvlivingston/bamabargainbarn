@@ -21,13 +21,14 @@ from django.http import JsonResponse
 from django.utils import timezone
 from decimal import Decimal
 from django.urls import reverse
+from django.conf import settings
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def checkout(request, order_id):
-    # Get the current session key
-    session_id = request.session.session_key
-
     # Get the order for the current session
-    order = Order.objects.filter(session_id=session_id, paid=False).first()
+    order = get_object_or_404(Order, id=order_id)
 
     # Get all order items for the current order
     order_items = OrderItem.objects.filter(order=order)
@@ -39,7 +40,45 @@ def checkout(request, order_id):
     shipping = Decimal('0.00')
     price_with_shipping = price_with_taxes + shipping
 
-    return render(request, 'checkout.html', {'order': order, 'order_items': order_items, 'sub_order_price': sub_order_price, 'price_with_shipping': price_with_shipping})
+    # Construct the line items for the Stripe Checkout Session
+    line_items = [
+        {
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': item.product.title,
+                },
+                'unit_amount': int(item.product.price * 100),  # Stripe requires amount in cents
+            },
+            'quantity': item.quantity,
+        }
+        for item in order_items
+    ]
+
+    # Create a Stripe Checkout Session
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url=request.build_absolute_uri(order.get_absolute_url()),  # Redirect to success page
+        cancel_url=request.build_absolute_uri(order.get_absolute_url()),   # Redirect to cancel page
+    )
+
+    # Print the session ID to the console
+    print(f"Stripe Checkout Session created. Session ID: {session.id}")
+
+    return render(
+        request,
+        'checkout.html',
+        {
+            'order': order,
+            'order_items': order_items,
+            'sub_order_price': sub_order_price,
+            'price_with_shipping': price_with_shipping,
+            'stripe_session_id': session.id,  # Pass the session ID to the template
+        }
+    )
+
     
 def pay(request, order_id):
     messages.warning(request, "Pay button worked.")
