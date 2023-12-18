@@ -94,7 +94,6 @@ def add_to_cart(request, product_id):
 
 def update_quantity(request, order_item_id):
     order_item = get_object_or_404(OrderItem, id=order_item_id)
-    order = order_item.order
     new_quantity = int(request.POST.get('quantity', 0))
     product_inventory = order_item.product.inventory
 
@@ -102,6 +101,11 @@ def update_quantity(request, order_item_id):
         # If the new quantity is within the valid range, update the OrderItem
         order_item.quantity = new_quantity
         order_item.save()
+
+        # Recalculate total_items for the associated Order
+        order = order_item.order
+        order.update_total_items()
+
         messages.success(request, 'Quantity updated successfully.')
     else:
         messages.error(request, f"We don't have that much in stock. You can choose from 1 and {product_inventory}.")
@@ -116,12 +120,13 @@ def delete_item(request, order_item_id):
     # Get the associated order
     order = order_item.order
 
+    # Delete the order item
+    order_item.delete()
+    
     # Decrement the total_items in the order by the number in the quantity field
     order.total_items -= order_item.quantity
     order.save()
 
-    # Delete the order item
-    order_item.delete()
 
     return redirect('cart')
 

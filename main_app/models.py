@@ -53,6 +53,11 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+    def update_total_items(self):
+        # Update total_items based on the sum of quantities of related OrderItems
+        self.total_items = sum(item.quantity for item in self.items.all())
+        self.save()
+        
     def orderSubtotal(self):
         return sum(item.sub_item_price for item in self.items.all())
 
