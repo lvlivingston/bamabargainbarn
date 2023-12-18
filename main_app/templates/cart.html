@@ -38,5 +38,6 @@
         </ul>
     {% else %}
         <p>Your shopping cart is empty.</p>
+        <a href="{% url 'products' %}">Today's Deals</a>
     {% endif %}
 {% endblock %}
