@@ -3,6 +3,7 @@ import uuid
 import boto3
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 # from django.contrib.auth import login
@@ -108,4 +109,7 @@ def success(request, order_id):
     return render(request, 'success.html', context)
 
 def cancel(request, order_id):
-    pass
+    # You can customize the URL to redirect to
+    redirect_url = reverse('checkout', args=[order_id])
+    
+    return HttpResponseRedirect(redirect_url)
