@@ -9,6 +9,8 @@
     </ul>
     {% endif %}
     <h1>Roll tide! Your order is on the way!</h1>
+    <p>Keep this number handy: {{ order.id }}</p>
+    <p>Your card will be charged ${{ price_with_shipping }}</p>
     <hr>
 
 {% endblock %}

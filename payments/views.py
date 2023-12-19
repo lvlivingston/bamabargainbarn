@@ -95,8 +95,17 @@ def pay(request, order_id):
 
     return redirect(session.url)
 
-def success():
-    pass
+def success(request, order_id):
+    
+    # Retrieve price_with_shipping from URL parameters
+    price_with_shipping = request.GET.get('price_with_shipping')
 
-def cancel():
+    context = {
+        'order': order_id,
+        'price_with_shipping': price_with_shipping,
+    }
+        
+    return render(request, 'success.html', context)
+
+def cancel(request, order_id):
     pass

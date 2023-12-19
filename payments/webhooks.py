@@ -18,6 +18,7 @@ def stripe_webhook(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, settings.STRIPE_ENDPOINT_SECRET
         )
+        print(f"Webhook Event: {event}")
     except ValueError as e:
         # Invalid payload
         return JsonResponse({'error: invalid payload': str(e)}, status=400)
@@ -32,9 +33,14 @@ def stripe_webhook(request):
 
     return JsonResponse({'status': 'successful payment'})
 
-def handle_payment_success(session):
-    # Get the order and mark it as paid
-    order_id = session.get('client_reference_id')
-    order = get_object_or_404(Order, id=order_id)
-    order.paid = True
-    order.save()
+def handle_payment_success(session, price_with_shipping):
+    try:
+        # Get the order and mark it as paid
+        order_id = session.get('client_reference_id')
+        order = get_object_or_404(Order, id=order_id)
+        price_with_shipping = request.GET.get('price_with_shipping')
+        order.paid = True
+        order.save()
+        print(f"Order {order_id} marked as paid successfully.")
+    except Exception as e:
+        print(f"Error marking order as paid: {e}")
