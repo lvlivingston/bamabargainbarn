@@ -35,7 +35,11 @@ def checkout(request, order_id):
 
     # Calculate the sub_order_price
     sub_order_price = sum(item.quantity * item.product.price for item in order_items)
-    taxes = Decimal('3.95')
+    # Set the tax rate (5% in this example)
+    tax_rate = Decimal('0.05')
+    # Calculate taxes
+    taxes = sub_order_price * tax_rate
+    # Assuming you want to include taxes in the final price
     price_with_taxes = sub_order_price + taxes
     shipping = Decimal('0.00')
     price_with_shipping = price_with_taxes + shipping
@@ -52,17 +56,23 @@ def checkout(request, order_id):
 
     
 def pay(request, order_id):
+    if request.method == 'POST':
+        # Retrieve the price_with_shipping value from the form
+        price_with_shipping = request.POST.get('price_with_shipping')
+
+    order = get_object_or_404(Order, id=order_id)
+    order_items = OrderItem.objects.filter(order=order)
     # Construct the line items for the Stripe Checkout Session
     line_items = [
-        {
+         {
             'price_data': {
                 'currency': 'usd',
                 'product_data': {
-                    'name': item.product.title,
+                    'name': 'Total Amount',  # You can customize this label
                 },
-                'unit_amount': int(item.product.price * 100),  # Stripe requires amount in cents
+                'unit_amount': int(Decimal(price_with_shipping) * 100),  # Stripe requires amount in cents
             },
-            'quantity': item.quantity,
+            'quantity': 1,  # Quantity is 1 for the total amount
         }
         for item in order_items
     ]
@@ -74,6 +84,7 @@ def pay(request, order_id):
         mode='payment',
         success_url=request.build_absolute_uri(reverse('success', args=[order_id])),
         cancel_url=request.build_absolute_uri(reverse('cancel', args=[order_id])),
+        client_reference_id=str(price_with_shipping),
     )
 
     # Extract the session ID

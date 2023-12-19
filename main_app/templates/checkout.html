@@ -41,17 +41,13 @@
             <label for="zip">Zip:</label>
             <input type="text" name="zip" required>
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" required>
             
-            <label for="phone">Phone:</label>
-            <input type="phone" name="phone" >
-
             <p>Order Subtotal: ${{ sub_order_price }}</p>
-            <p>Taxes: <i>calculated on the next screen</i></p>
-            <p>Shipping: <i>calculated on the next screen</i></p>
-            <p>Final Price: ${{ sub_order_price }}</p>
-            <button type="submit">Pay</button>
+            <p>Taxes: <i>5%</i></p>
+            <p>Shipping: <i><s>$8.99</s> FREE</i></p>
+            <p>Final Price: ${{ price_with_shipping|floatformat:2 }}</p>
+            <input type="hidden" name="price_with_shipping" value="{{ price_with_shipping }}">
+            <button type="submit">Finish & Pay</button>
         </form>
     {% else %}
     {% endif %}
