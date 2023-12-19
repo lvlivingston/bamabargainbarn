@@ -40,6 +40,18 @@ def checkout(request, order_id):
     shipping = Decimal('0.00')
     price_with_shipping = price_with_taxes + shipping
 
+    context = {
+        'order': order,
+        'order_items': order_items,
+        'sub_order_price': sub_order_price,
+        'price_with_shipping': price_with_shipping,
+    }
+
+    # Pass the context to the render function
+    return render(request, 'checkout.html', context)
+
+    
+def pay(request, order_id):
     # Construct the line items for the Stripe Checkout Session
     line_items = [
         {
@@ -60,26 +72,20 @@ def checkout(request, order_id):
         payment_method_types=['card'],
         line_items=line_items,
         mode='payment',
-        success_url=request.build_absolute_uri(order.get_absolute_url()),  # Redirect to success page
-        cancel_url=request.build_absolute_uri(order.get_absolute_url()),   # Redirect to cancel page
+        success_url=request.build_absolute_uri(reverse('success', args=[order_id])),
+        cancel_url=request.build_absolute_uri(reverse('cancel', args=[order_id])),
     )
+
+    # Extract the session ID
+    session_id = session.id
 
     # Print the session ID to the console
     print(f"Stripe Checkout Session created. Session ID: {session.id}")
 
-    return render(
-        request,
-        'checkout.html',
-        {
-            'order': order,
-            'order_items': order_items,
-            'sub_order_price': sub_order_price,
-            'price_with_shipping': price_with_shipping,
-            'stripe_session_id': session.id,  # Pass the session ID to the template
-        }
-    )
+    return redirect(session.url)
 
-    
-def pay(request, order_id):
-    messages.warning(request, "Pay button worked.")
-    return redirect('cart')
+def success():
+    pass
+
+def cancel():
+    pass
