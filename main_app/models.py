@@ -32,7 +32,7 @@ class Customer(models.Model):
     streetAddress = models.TextField(max_length=100)
     city = models.CharField(max_length=25)
     state = models.TextField(max_length=2)
-    zip = models.CharField(max_length=25)
+    zip = models.CharField(max_length=5)
     phone = models.CharField(max_length=10)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -52,6 +52,15 @@ class Order(models.Model):
     total_items = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    first_name = models.CharField(max_length=25)
+    last_name = models.CharField(max_length=25)
+    streetAddress = models.TextField(max_length=100)
+    city = models.CharField(max_length=25)
+    state = models.TextField(max_length=2)
+    ship_zip = models.CharField(max_length=5)
+    email = models.EmailField(max_length=75)
+    phone = models.CharField(max_length=10)
+    bil_zip = models.CharField(max_length=5)
 
     def update_total_items(self):
         # Update total_items based on the sum of quantities of related OrderItems
