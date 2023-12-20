@@ -49,10 +49,12 @@ class Order(models.Model):
     date = models.DateField('Order Placed', default=timezone.now)  # Use default to set the current time
     total_items = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
+    price_with_shipping = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
+    price_paid = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
 
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, blank=True, null=True)
-    streetAddress = models.TextField(max_length=100, blank=True, null=True)
+    street_address = models.TextField(max_length=100, blank=True, null=True)
     city = models.CharField(max_length=25, blank=True, null=True)
     state = models.TextField(max_length=2, blank=True, null=True)
     ship_zip = models.CharField(max_length=5, blank=True, null=True)

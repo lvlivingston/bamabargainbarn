@@ -23,6 +23,8 @@ from django.utils import timezone
 from decimal import Decimal
 from django.urls import reverse
 from django.conf import settings
+from django import forms
+from .forms import CheckoutForm
 import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -45,6 +47,9 @@ def checkout(request, order_id):
     shipping = Decimal('0.00')
     price_with_shipping = price_with_taxes + shipping
 
+    order.price_with_shipping = price_with_shipping
+    order.save()
+
     context = {
         'order': order,
         'order_items': order_items,
@@ -57,12 +62,26 @@ def checkout(request, order_id):
 
     
 def pay(request, order_id):
-    if request.method == 'POST':
-        # Retrieve the price_with_shipping value from the form
-        price_with_shipping = request.POST.get('price_with_shipping')
-
     order = get_object_or_404(Order, id=order_id)
     order_items = OrderItem.objects.filter(order=order)
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            order.first_name = form.cleaned_data['first_name']
+            order.last_name = form.cleaned_data['last_name']
+            order.street_address = form.cleaned_data['street_address']
+            order.city = form.cleaned_data['city']
+            order.state = form.cleaned_data['state']
+            order.ship_zip = form.cleaned_data['ship_zip']
+            order.save()
+        else:
+            form = CheckoutForm()
+    else:
+        form = CheckoutForm()
+
+    price_with_shipping = order.price_with_shipping
+
     # Construct the line items for the Stripe Checkout Session
     line_items = [
          {
@@ -86,6 +105,9 @@ def pay(request, order_id):
         success_url=request.build_absolute_uri(reverse('success', args=[order_id])),
         cancel_url=request.build_absolute_uri(reverse('cancel', args=[order_id])),
         client_reference_id=str(price_with_shipping),
+        shipping_address_collection={
+            'allowed_countries': ['US'],  # Adjust based on your needs
+        },
     )
 
     # Extract the session ID
@@ -95,6 +117,7 @@ def pay(request, order_id):
     print(f"Stripe Checkout Session created. Session ID: {session.id}")
 
     return redirect(session.url)
+
 
 def success(request, order_id):
     
