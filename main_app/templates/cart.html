@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <h1>Shopping Cart</h1>
     <hr>
@@ -10,7 +9,6 @@
             {% endfor %}
         </ul>
     {% endif %}
-
     {% if order.items.all %}
         <ul>
             {% for item in order.items.all %}

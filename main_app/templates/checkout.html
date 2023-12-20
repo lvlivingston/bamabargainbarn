@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
     <h1>Check Out</h1>
     <hr>
-
     {% if order.items.all %}
         <ul>
             {% for item in order.items.all %}
@@ -15,7 +13,6 @@
                     <h5>{{ item.product.title }}</h5>
                     <p>Price: ${{ item.product.price }} (per item)</p>
                     <p>Quantity: {{ item.quantity }}</p>
-                    <!-- <p>Subtotal: ${{ item.sub_item_price }}</p> -->
                 </li>
             {% endfor %}
         </ul>
@@ -25,23 +22,16 @@
             {% csrf_token %}
             <label for="first_name">First Name:</label>
             <input type="text" name="first_name" required>
-            
             <label for="last_name">Last Name:</label>
             <input type="text" name="last_name" required>
-            
             <label for="street_address">Street Address:</label>
             <input type="text" name="street_address" required>
-        
             <label for="city">City:</label>
             <input type="text" name="city" required>
-            
             <label for="state">State:</label>
             <input type="text" name="state" required>
-        
             <label for="ship_zip">Zip:</label>
             <input type="text" name="ship_zip" required>
-
-            
             <p>Order Subtotal: ${{ sub_order_price }}</p>
             <p>Taxes: <i>5%</i></p>
             <p>Shipping: <i><s>$8.99</s> FREE</i></p>

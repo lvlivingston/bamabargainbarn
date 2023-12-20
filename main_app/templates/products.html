@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
     {% if messages %}
     <ul class="messages">
@@ -10,13 +9,12 @@
     {% endif %}
     <h1>Today's Bargains</h1>
     <hr>
-
     {% if products %}
         <ul>
             {% for product in products %}
             <li>
                 {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 50px;">
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" style="max-width: 500px;">
                 {% endif %}
                     <h5>{{ product.title }}</h5>
                     <p>Price: ${{ product.price }}</p>

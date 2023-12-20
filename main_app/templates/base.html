@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +13,7 @@
 </head>
 <body>
     <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
+        <nav class="color">
                 <ul>
                     <li><a href="{% url 'products' %}" class="left brand-logo">&nbsp;&nbsp;Bama Bargain Barn</a></li>
                 </ul>
@@ -23,15 +21,11 @@
                   <li><a href="{% url 'products' %}">Today's Deals</a></li>
                   <li><a href="{% url 'cart' %}" class="icon-container"><img src="{% static 'images/shoppingCart.png' %}" alt="Shopping Cart" style="width: 40px"></a></li>
                 </ul>
-            </div>
         </nav>
     </header>
     <main class="container">
         {% block content %}
         {% endblock %}
     </main>
-  	<!-- <footer class="page-footer">
-      <div class="right">All Rights Reserved, &copy; 2023 Bama Bargain Barn &nbsp;</div>
-    </footer> -->
   </body>
 </html>
