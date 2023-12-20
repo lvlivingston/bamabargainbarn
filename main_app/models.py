@@ -25,42 +25,42 @@ class Product(models.Model):
     
 
 class Customer(models.Model):
-    name = models.CharField(max_length=50)
-    firstName = models.CharField(max_length=25)
-    lastName = models.CharField(max_length=25)
-    email = models.EmailField(max_length=75)
-    streetAddress = models.TextField(max_length=100)
-    city = models.CharField(max_length=25)
-    state = models.TextField(max_length=2)
-    zip = models.CharField(max_length=5)
-    phone = models.CharField(max_length=10)
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    street_address = models.CharField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=25, blank=True, null=True)
+    state = models.CharField(max_length=2, blank=True, null=True)
+    zip_code = models.CharField(max_length=5, blank=True, null=True)
+    email = models.EmailField(max_length=75, blank=True, null=True)
+    phone = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
         return reverse('profile', kwargs={'customer_id': self.id})
     
     
 class Order(models.Model):
-    csrf_token = models.CharField(max_length=255, blank=True, null=True, unique=True)
-    session_id = models.CharField(max_length=255, blank=True, null=True)
+    csrf_token = models.CharField(max_length=256, blank=True, null=True, unique=True)
+    session_id = models.CharField(max_length=256, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     date = models.DateField('Order Placed', default=timezone.now)  # Use default to set the current time
     total_items = models.IntegerField(default=0)
     paid = models.BooleanField(default=False)
+
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    streetAddress = models.TextField(max_length=100, blank=True, null=True)
+    city = models.CharField(max_length=25, blank=True, null=True)
+    state = models.TextField(max_length=2, blank=True, null=True)
+    ship_zip = models.CharField(max_length=5, blank=True, null=True)
+    email = models.EmailField(max_length=75, blank=True, null=True)
+    phone = models.CharField(max_length=10, blank=True, null=True)
+    bil_zip = models.CharField(max_length=5, blank=True, null=True)
+    
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    first_name = models.CharField(max_length=25)
-    last_name = models.CharField(max_length=25)
-    streetAddress = models.TextField(max_length=100)
-    city = models.CharField(max_length=25)
-    state = models.TextField(max_length=2)
-    ship_zip = models.CharField(max_length=5)
-    email = models.EmailField(max_length=75)
-    phone = models.CharField(max_length=10)
-    bil_zip = models.CharField(max_length=5)
 
     def update_total_items(self):
         # Update total_items based on the sum of quantities of related OrderItems
