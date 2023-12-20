@@ -6,7 +6,7 @@ An eCommerce web application by Leah Livingston
 ---
 ### **Project Description**
 
-🐴 Howdy 🤠 and welcome to the "🏆 Bama 🏈 Bargain 🉐 Barn 🚜" an online eCommerce web application where you can buy from our current inventory of Alabama Football merchandise <i>cough cough Roll Tide cough</i>. We shy away from items that require sizing, because, well you know... inventory; but you'll find our current bargains online 24 / 7 / 365!
+🐴 Howdy 🤠 and welcome to the "🏆 Bama 🏈 Bargain 🉐 Barn 🚜" an online eCommerce web application where you can buy from our current inventory of Alabama Football merchandise <i>cough cough Roll Tide</i>. 
 
 [Click Here to Check out the Shop Now](https://bamabargainbarn.herokuapp.com/)
 
@@ -14,7 +14,7 @@ An eCommerce web application by Leah Livingston
 
 ---
 ### **Tech Stack**
-It's a responsive eCommerce web application hosted on Heroku utilizing Django with Python, React, PostgreSQL, HTML, CSS, and the payments API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python).
+It's a responsive eCommerce web application hosted on Heroku utilizing Django with Python, PostgreSQL, HTML, CSS, and the payments API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python).
 
 ###### **API Details**
 The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) payments API is connected via test mode only. Currently, I have successfully created the shopping cart and checkout views, and connected to the API as well. Once finished with rendering of the client-side views, I will create a payments button to complete the Order.
@@ -37,13 +37,15 @@ The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) paymen
 | `full index of items`  |   |   |   |   |
 | GET | `/products` | Read | View Products | retrieves available products in database  |
 | GET | `/products/:product_id` | Read | View Product Details | retrieves detailed information on product  |
-| GET | `/cart` | Read | View Cart | retrieves items in shopping cart of current session  |
-| POST | `/cart/add/:product_id/` | Create | Add to Cart | adds a product to current shopping cart session |
-| POST | `/cart/update/:product_id/` | Update | Update Cart | updates quantity and current shopping cart session |
-| POST | `/cart/delete/:product_id/` | Delete | Delete Item | deletes item from current shopping cart session |
-| GET | `/checkout` | Read | Review Order | opportunity to review order and provide shipping details |
-| POST | `/checkout/pay` | Create | Pay for Order | adds payment to complete order |
-| GET | `/fetch-stripe-data` | Read | Stripe Connection | calls payment API to process payment  |
+| POST | `/cart` | Read | View Cart | retrieves items in shopping cart  |
+| POST | `/cart/add/:product_id` | Create | Add to Cart | adds a product to shopping cart  |
+| POST | `/cart/update/:order_id` | Update | Update Quantity | updates quantity of product in shopping cart  |
+| POST | `/cart/delete/:order_id` | Delete | Remove Item | removes item from shopping cart  |
+| GET | `/cart/checkout/:order_id` | Read | Review Order | retrieves order to provide shipping details |
+| GET | `/stripe-webhook` | Read | Stripe Webhook | calls payment API to process payment  |
+| GET | `/cart/checkout/:order_id/pay` | Read | Pay | retrieves Stripe Checkout to pay |
+| GET | `/cart/checkout/:order_id/success` | Read | Order Confirmation | confirms order was received |
+| GET | `/cart/checkout/:order_id/cancel` | Read | Leave Checkout | retrieves "Review Order" view |
 
 
 
@@ -153,10 +155,10 @@ The projected schedule will be as follows:
 - [X] Day 2 (12/15 - Fri.):   Complete models, urls, views, and test data setup 
 - [X] Day 3 (12/16 - Sat.):   Complete necessary html and css for basic navigation  
 - [X] Day 4 (12/17 - Sun.):   Create Product, Shopping Cart, and Checkout views
-- [ ] Day 5 (12/18 - Mon.):   Create "Pay No"w" button and connect Stripe payments API
-- [ ] Day 6 (12/19 - Tues.):  Complete eCommerce functionality (data connection and styling)
-- [ ] Day 7 (12/20 - Wed.):   Polish CSS styling
-- [ ] Day 8 (12/21 - Thurs.): Presentation   
+- [X] Day 5 (12/18 - Mon.):   Create "Pay Now" button and connect Stripe payments API
+- [X] Day 6 (12/19 - Tues.):  Complete eCommerce functionality (data connection and styling)
+- [X] Day 7 (12/20 - Wed.):   Polish CSS styling
+- [X] Day 8 (12/21 - Thurs.): Presentation   
 
 
 
@@ -169,7 +171,7 @@ The projected schedule will be as follows:
 - [X] AAU, I want the ability to add a product to the shopping cart without having to log-in.
 - [X] AAU, I want the ability to delete a product to the shopping cart, also without having to log-in.
 - [X] AAU, I want the ability to leave the shop url and come back within 24h to find my items still in the shopping cart.
-- [ ] AAU, I want the ability to purchase a product.
+- [X] AAU, I want the ability to purchase a product.
 
 ###### Style
 - [X] Include basic CSS to successfully utilize the web application
@@ -179,7 +181,7 @@ The projected schedule will be as follows:
 
 ###### Functionality
 - [X] Include shopping cart functionality 
-- [ ] Include Stripe payments API for ability to purchase a product 
+- [X] Include Stripe payments API for ability to purchase a product 
 
 
 

@@ -4,6 +4,7 @@ from django.urls import reverse
 from datetime import date
 from django.utils import timezone
 
+
 class Product(models.Model):
     title = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -51,7 +52,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     price_with_shipping = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
     price_paid = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True, default=None)
-
+    
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, blank=True, null=True)
     street_address = models.TextField(max_length=100, blank=True, null=True)

@@ -105,9 +105,7 @@ def pay(request, order_id):
         success_url=request.build_absolute_uri(reverse('success', args=[order_id])),
         cancel_url=request.build_absolute_uri(reverse('cancel', args=[order_id])),
         client_reference_id=str(price_with_shipping),
-        shipping_address_collection={
-            'allowed_countries': ['US'],  # Adjust based on your needs
-        },
+        shipping_address_collection=None,
     )
 
     # Extract the session ID
