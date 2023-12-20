@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    <hr>
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -8,7 +9,6 @@
     </ul>
     {% endif %}
     <h1>Today's Bargains</h1>
-    <hr>
     {% if products %}
         <ul>
             {% for product in products %}

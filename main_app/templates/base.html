@@ -16,7 +16,12 @@
         <nav class="color">
             <div class="navbar-container">
                 <ul class="left">
-                    <li><a href="{% url 'products' %}" class="left brand-logo">&nbsp;&nbsp;Bama Bargain Barn</a></li>
+                    <li>
+                        <a href="{% url 'products' %}" class="left brand-logo">
+                            Bama Bargain Barn
+                            <span class="tagline">Where legends find bargains.</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="right">
                   <li><a href="{% url 'products' %}">Today's Deals</a></li>

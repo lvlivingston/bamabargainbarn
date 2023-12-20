@@ -9,11 +9,17 @@
 }
 
 body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
   margin: 0;
   padding: 0;
+  background-image: url('/static/images/barnbackground.png'); /* Set the background image path */
+  background-size: cover; /* Cover the entire body with the background image */
+  background-repeat: no-repeat;
+  background-position: center; /* Center the background image */
+  height: 100vh;
+  /* color: white; */
+  /* display: flex;
+  min-height: 100vh;
+  flex-direction: column; */
 }
 
 main {
@@ -31,6 +37,9 @@ a {
   color: white;
 }
 
+.messages {
+
+}
 
 .icon-container {
   display: flex !important;
@@ -57,7 +66,13 @@ a {
 
 .navbar-container ul.left {
   font-family: 'LEMONMILK-Bold', sans-serif;
-  font-size: 24px;
+  font-size: 40px;
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar-container ul.left {
+      font-size: 24px;
+  }
 }
 
 .navbar-container ul.right {
@@ -65,10 +80,16 @@ a {
   gap: 20px;
   align-items: center; /* Add this line to center vertically */
   font-family: 'LEMONMILK-Regular', sans-serif;
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar-container ul.right {
+      font-size: 14px;
+  }
 }
 
 .color {
-  background-color: #99131f;
   color: white;
 }
 
@@ -83,4 +104,10 @@ nav ul li:not(:last-child):hover a {
 
 nav ul li:last-child:hover a {
   text-decoration: none;
+}
+
+.tagline {
+  font-size: 14px; /* Adjust the font size as needed */
+  display: block;
+  color: #ffffff; /* Set the desired color */
 }
