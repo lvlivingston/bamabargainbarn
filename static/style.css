@@ -59,6 +59,10 @@ a {
   color: #691d1a;
 }
 
+.grey {
+  color: #691d1a;
+}
+
 .icon-container {
   display: flex !important;
   justify-content: center !important;
@@ -249,6 +253,10 @@ nav ul li:last-child:hover a {
   font-family: 'GryphonRock', sans-serif;
 }
 
+.button-font {
+  font-family: 'LEMONMILK-Regular', sans-serif;
+}
+
 .product-detail {
   list-style-type: none;
   padding: 0;
@@ -278,4 +286,65 @@ nav ul li:last-child:hover a {
       width: 48%; /* Two items side by side, with some spacing in between */
       margin-right: 2%; /* Add some spacing between items */
   }
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.order-summary {
+  /* Add styles for the order summary */
+  margin-top: 20px;
+}
+
+.checkout-button {
+  padding: 15px 30px;
+  background-color: #691d1a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'LEMONMILK-Regular', sans-serif;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.checkout-button:hover {
+  background-color: #2e7d32;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-margin {
+  padding-top: 20px;
+}
+
+.bargain-button {
+  padding: 15px 30px;
+  background-color: #691d1a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'LEMONMILK-Regular', sans-serif;
+  text-align: center;
+  font-size: 20px;
+}
+
+.bargain-button:hover {
+  background-color: #2e7d32;
+}
+
+.margin-bottom {
+  padding-bottom: 20px;
 }
