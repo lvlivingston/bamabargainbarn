@@ -1,4 +1,4 @@
-# ![Banner Photo](./images/ADD BANNER.png)
+# ![Banner Photo](./images/banner.png)
 An eCommerce web application by Leah Livingston
 
 

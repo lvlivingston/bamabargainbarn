@@ -8,6 +8,11 @@
   src: url('/static/LEMONMILK-Regular.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'GryphonRock'; /* Choose a name for your font family */
+  src: url('/static/Gryphon Rock v2 TrueType.ttf') format('opentype');
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -15,11 +20,17 @@ body {
   background-size: cover; /* Cover the entire body with the background image */
   background-repeat: no-repeat;
   background-position: center; /* Center the background image */
-  height: 100vh;
+  background-attachment: fixed;
   /* color: white; */
   /* display: flex;
   min-height: 100vh;
   flex-direction: column; */
+}
+
+@media (max-width: 768px) {
+  body {
+      background-attachment: scroll; /* Allow the background image to scroll on small screens */
+  }
 }
 
 main {
@@ -38,13 +49,39 @@ a {
 }
 
 .messages {
+  font-size: 20px;
+  color: #691d1a;
+  font-style: italic;
+  text-align: center;
+}
 
+.red {
+  color: #691d1a;
 }
 
 .icon-container {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
+}
+
+.icon-container:hover img {
+  animation: wiggle 0.5s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
 }
 
 .small-icon {
@@ -67,11 +104,15 @@ a {
 .navbar-container ul.left {
   font-family: 'LEMONMILK-Bold', sans-serif;
   font-size: 40px;
+  margin-left: 30px;
+  margin-top: 20px;
 }
 
 @media only screen and (max-width: 768px) {
   .navbar-container ul.left {
-      font-size: 24px;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 10px;
   }
 }
 
@@ -81,11 +122,13 @@ a {
   align-items: center; /* Add this line to center vertically */
   font-family: 'LEMONMILK-Regular', sans-serif;
   font-size: 20px;
+  margin-right: 30px;
 }
 
 @media only screen and (max-width: 768px) {
   .navbar-container ul.right {
       font-size: 14px;
+      margin-right: 10px;
   }
 }
 
@@ -107,7 +150,101 @@ nav ul li:last-child:hover a {
 }
 
 .tagline {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 14px; 
   display: block;
-  color: #ffffff; /* Set the desired color */
+  color: #ffffff; 
+}
+
+.container {
+  background-color: white;
+  margin: 50px 40px 40px 40px;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    background-color: white;
+    margin: 0 20px 20px 20px;
+  }
+}
+
+.container ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container ul li {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Occupies full width initially */
+  margin-right: 10px; /* Add some margin between items */
+  box-sizing: border-box; /* Include padding and border in item width */
+}
+
+.container ul li:nth-child(2n) {
+  margin-right: 0; /* No margin for every second item, creating two columns */
+}
+
+.container ul li img.products {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.container ul li h5 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.container ul li p {
+  margin: 0;
+  color: #888;
+}
+
+.container ul li a {
+  color: black;
+  text-decoration: underline;
+}
+
+.container ul li form {
+  margin-top: 10px;
+}
+
+.container ul li button {
+  padding: 8px 12px;
+  background-color: #691d1a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.container ul li button:hover {
+  background-color: #2e7d32;
+}
+
+/* Media query for screens 768 pixels or less */
+@media (max-width: 768px) {
+  .container ul li {
+      flex: 0 0 100%; /* Occupies full width on small screens */
+      margin-right: 0; /* No margin on small screens */
+  }
+}
+
+.page-title {
+  font-family: 'GryphonRock', sans-serif;
+  /* color: #691d1a; */
+  text-align: center;
+}
+
+.product {
+  width: 50px;
+}
+
+.font {
+  font-family: 'GryphonRock', sans-serif;
 }
