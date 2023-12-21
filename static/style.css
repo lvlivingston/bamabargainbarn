@@ -248,3 +248,34 @@ nav ul li:last-child:hover a {
 .font {
   font-family: 'GryphonRock', sans-serif;
 }
+
+.product-detail {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap to the next line on small screens */
+}
+
+.product-detail li {
+  width: 100%; /* Each item takes full width initially */
+  box-sizing: border-box; /* Include padding and border in item width */
+  margin-bottom: 20px; /* Add some margin between items */
+}
+
+.product-detail img {
+  max-width: 100%; /* Ensure the image doesn't overflow its container */
+  height: auto;
+}
+
+.product-detail .product-info {
+  flex: 1; /* Expand to take available space */
+}
+
+/* Media query for screens more than 768 pixels */
+@media only screen and (min-width: 769px) {
+  .product-detail li {
+      width: 48%; /* Two items side by side, with some spacing in between */
+      margin-right: 2%; /* Add some spacing between items */
+  }
+}
