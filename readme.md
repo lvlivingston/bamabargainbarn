@@ -17,9 +17,9 @@ An eCommerce web application by Leah Livingston
 It's a responsive eCommerce web application hosted on Heroku utilizing Django with Python, PostgreSQL, HTML, CSS, and the payments API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python).
 
 ###### **API Details**
-The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) payments API is connected via test mode only. Currently, I have successfully created the shopping cart and checkout views, and connected to the API as well. Once finished with rendering of the client-side views, I will create a payments button to complete the Order.
+The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) payments API is connected via test mode only. Currently, I have successfully connected to the API, setup a shopping cart, checkout, and pay views. With the test credit card information, it's possible to see the successful and cancel payment paths, but there is a small issue with the webhook that needs to be debugged to update inventory and clear out the shopping cart after purchase.
 
-![API Details](./images/apisuccess.png)
+![API Details](./images/apiFinal.png)
 
 
 
@@ -72,7 +72,7 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for 
 - [ ] Include newsletter sign-up option in top navigation
 
 ##### Functionality
-- [ ] Complete backend inventory logic to ensure inventory is correct after purchases.
+- [ ] Complete backend inventory logic to ensure inventory is correct after purchases (webhook issue)
 - [ ] Include ability to create a new user profile upon purchase of a product
 - [ ] Include ability for user to view their profile
 - [ ] Include ability for user to view past purchases
@@ -93,7 +93,7 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for 
 
 
 
-
+---
 # **Planning Materials & Original Pitch below**
 
 
