@@ -51,13 +51,13 @@ The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) paymen
 
 ---
 ### **Wireframes (Mobile View)**
-![Current Wireframes](./src/images/final/ADD HERE.png)
+![Current Wireframes](./src/images/wireframesMobile.png)
 
 
 
 ---
 ###  **Credit**
-A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for your support.
+A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for your support, as well as the University of Alabama football dynasty for the inspiration. Roll tide!
 
 
 
@@ -65,13 +65,21 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for 
 ### **Next Steps**
 
 ##### Style
-- [ ] Create Pay Now button on Checkout page
-- [ ] Clean up CSS structure on client-side views for better user experience 
-- [ ] Polish CSS styling following a 'Brand Kit'
+- [ ] Clean up CSS structure on client-side views for better user experience in mobile & desktop.
+- [ ] Include a 'Brand Kit' for future development use
+- [ ] Include CSS styling following a 'Brand Kit'
+- [ ] Include visual optimization for desktop and tablet
+- [ ] Include newsletter sign-up option in top navigation
 
 ##### Functionality
-- [ ] Connect Pay Now button on Stripe Payments API to see what view is provided.
-- [ ] Finish building out Order model to know what information should be passed.
+- [ ] Complete backend inventory logic to ensure inventory is correct after purchases.
+- [ ] Include ability to create a new user profile upon purchase of a product
+- [ ] Include ability for user to view their profile
+- [ ] Include ability for user to view past purchases
+- [ ] Include ability for user to log-out
+- [ ] Includes newsletter sign-up functionality
+- [ ] Include functionality that allows each user to only see their own data
+- [ ] Include ability to log-in via oAuth in top navigation
 
 
 [See Current Version of the Web App Here](https://bamabargainbarn.herokuapp.com/)
@@ -177,11 +185,13 @@ The projected schedule will be as follows:
 - [X] Include basic CSS to successfully utilize the web application
 - [X] Include top navigation, including: 'Products' and 'Shopping Cart' page links
 - [X] Include two individual page views, including: 'Proucts' and 'Shopping Cart' screens
+- [X] Create Pay Now button on Checkout page
 - [ ] Include visual optimization for mobile view
 
 ###### Functionality
 - [X] Include shopping cart functionality 
 - [X] Include Stripe payments API for ability to purchase a product 
+- [X] Connect Pay Now button on Stripe Payments API to see what view is provided.
 
 
 
