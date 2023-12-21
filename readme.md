@@ -51,7 +51,7 @@ The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) paymen
 
 ---
 ### **Wireframes (Mobile View)**
-![Current Wireframes](./src/images/wireframesMobile.png)
+![Current Wireframes](./images/wireframesMobile.png)
 
 
 
