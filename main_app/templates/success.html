@@ -7,7 +7,8 @@
         {% endfor %}
     </ul>
     {% endif %}
-    <h1>Roll tide! Your order is on the way!</h1>
-    <p>Your order is on the way!</p>
-    <a href="{% url 'products' %}">Find another Bargain</a>
+    <h1 class="page-title top-margin">Roll tide! Your order is on the way!</h1>
+    <div class="center margin-bottom">
+        <a href="{% url 'products' %}" class="bargain-button">Find Another Bargain Now</a>
+    </div>
 {% endblock %}
