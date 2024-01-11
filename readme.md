@@ -8,7 +8,8 @@ An eCommerce web application by Leah Livingston
 
 🐴 Howdy 🤠 and welcome to the "Bama Bargain Barn" an online eCommerce web application where you can buy from our current inventory of Alabama Football merchandise <i>cough Roll Tide cough </i>. 
 
-[Click Here to Check out the Shop Now](https://bamabargainbarn.herokuapp.com/)
+
+<!-- [Click Here to Check out the Shop Now](https://bamabargainbarn.herokuapp.com/) -->
 
 
 
@@ -51,7 +52,12 @@ The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) paymen
 
 ---
 ### **Wireframes (Mobile View)**
-![Current Wireframes](./images/wireframesMobile.png)
+
+##### Mobile View
+![Mobile Wireframes](./images/wireframesMobile.png)
+
+##### Desktop View
+![Desktop Wireframes](./images/wireframesDesktop.png)
 
 
 
