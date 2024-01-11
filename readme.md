@@ -63,7 +63,7 @@ The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) paymen
 
 ---
 ###  **Credit**
-A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for your support, as well as the University of Alabama football dynasty for the inspiration. Roll tide!
+A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for your support, as well as the University of Alabama football dynasty and the Legend, Nick Saban, for the inspiration. Roll tide baby!
 
 
 
