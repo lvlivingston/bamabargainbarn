@@ -15,7 +15,7 @@ An eCommerce web application by Leah Livingston
 
 ---
 ### **Tech Stack**
-It's a responsive eCommerce web application hosted on Heroku utilizing Django with Python, PostgreSQL, HTML, CSS, and the payments API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python).
+It's a responsive eCommerce web application (soon to be hosted on Heroku) utilizing Django with Python, PostgreSQL, HTML, CSS, and the payments API from [Stripe](https://stripe.com/docs/development/quickstart?lang=python).
 
 ###### **API Details**
 The [Stripe](https://stripe.com/docs/implementation-guides/core-payments) payments API is connected via test mode only. Currently, I have successfully connected to the API, setup a shopping cart, checkout, and pay views. With the test credit card information, it's possible to see the successful and cancel payment paths, but there is a small issue with the webhook that needs to be debugged to update inventory and clear out the shopping cart after purchase.
@@ -71,10 +71,9 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for 
 ### **Next Steps**
 
 ##### Style
-- [ ] Clean up CSS structure on client-side views for better user experience in mobile & desktop.
+- [ ] Clean up CSS and responsiveness for better user experience in mobile and desktop
 - [ ] Include a 'Brand Kit' for future development use
-- [ ] Include CSS styling following a 'Brand Kit'
-- [ ] Include visual optimization for desktop and tablet
+- [ ] Improve CSS styling following said 'Brand Kit'
 - [ ] Include newsletter sign-up option in top navigation
 
 ##### Functionality
@@ -88,14 +87,7 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for 
 - [ ] Include ability to log-in via oAuth in top navigation
 
 
-[See Current Version of the Web App Here](https://bamabargainbarn.herokuapp.com/)
-
-
-
-
-
-
-
+<!-- [See Current Version of the Web App Here](https://bamabargainbarn.herokuapp.com/) -->
 
 
 
