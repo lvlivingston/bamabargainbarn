@@ -9,7 +9,7 @@ An eCommerce web application by Leah Livingston
 🐴 Howdy 🤠 and welcome to the "Bama Bargain Barn" an online eCommerce web application where you can buy from our current inventory of Alabama Football merchandise <i>cough Roll Tide cough </i>. 
 
 
-[Click Here to Check out the Shop Now](https://bamabargainbarn.herokuapp.com/) -->
+[Click Here to Check out the Shop Now](https://bamabargainbarn.vercel.app/)
 
 
 
@@ -87,7 +87,7 @@ A big thank you to Weston Bailey, April Gonzalez, Tom Kolsrud, & Ben Manley for 
 - [ ] Include ability to log-in via oAuth in top navigation
 
 
-<!-- [See Current Version of the Web App Here](https://bamabargainbarn.herokuapp.com/) -->
+[Click Here to Check out the Shop Now](https://bamabargainbarn.vercel.app/)
 
 
 
